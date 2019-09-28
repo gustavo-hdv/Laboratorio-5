@@ -7,23 +7,21 @@ public class Produto {
 	private String descricao;
 	private double valor;
 	
-	public Produto(String nome, String descricao, double valor) {
-		if (nome == null) throw new NullPointerException("Nome nao pode ser nulo");
-		if (nome.trim().equals("")) throw new IllegalArgumentException("Nome nao pode ser vazio");
+	public Produto(String nomeProduto, String descricaoProduto, double valorProduto) {
+		Utilitarios.NullException("Nome nulo", nomeProduto);
+		Utilitarios.EmptyException("Nome vazio", nomeProduto);
+		Utilitarios.NullException("Descrição nulo", descricaoProduto);
+		Utilitarios.EmptyException("Descrição vazio", descricaoProduto);
+		Utilitarios.NumberException("Valor negativo", valorProduto);
 		
-		if (descricao == null) throw new NullPointerException("Descricao nao pode ser nulo");
-		if (descricao.trim().equals("")) throw new IllegalArgumentException("Descricao nao pode ser vazio");
-		
-		if (valor < 0) throw new IllegalArgumentException("Valor nao pode ser negativo");
-		
-		this.nome = nome;
-		this.descricao = descricao;
-		this.valor = valor;
+		this.nome = nomeProduto;
+		this.descricao = descricaoProduto;
+		this.valor = valorProduto;
 	}
 	
-	public void setValor(double valor) {
-		if (valor < 0) throw new IllegalArgumentException("Valor nao pode ser negativo");
-		this.valor = valor;
+	public void setValor(double valorProduto) {
+		Utilitarios.NumberException("Valor negativo", valorProduto);
+		this.valor = valorProduto;
 	}
 	
 	@Override

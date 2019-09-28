@@ -5,17 +5,18 @@ public class Pessoa {
 	protected String email;
 	
 	public Pessoa(String nome, String email) {
-		if (nome == null) throw new NullPointerException("Nome nao pode ser nulo");
-		if (nome.trim().equals("")) throw new IllegalArgumentException("Nome nao pode ser vazio");
-		
-		if (email == null) throw new NullPointerException("Email nao pode ser nulo");
-		if (email.trim().equals("")) throw new IllegalArgumentException("Email nao pode ser vazio");
+		Utilitarios.NullException("Nome nulo", nome);
+		Utilitarios.NullException("Email nulo", email);
+		Utilitarios.EmptyException("Nome vazio", nome);
+		Utilitarios.EmptyException("Email vazio", email);
 		
 		this.nome = nome;
 		this.email = email;
 	}
 	
 	public void setEmail(String email) {
+		Utilitarios.NullException("Email nulo", email);
+		Utilitarios.EmptyException("Email vazio", email);
 		this.email = email;
 	}
 	

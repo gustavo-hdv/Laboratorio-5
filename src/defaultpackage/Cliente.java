@@ -4,40 +4,33 @@ public class Cliente extends Pessoa {
 	private String localizacao;
 	private String cpf;
 	
-	public Cliente(String nome, String email, String localizacao, String cpf) {
-		super(nome, email);
+	public Cliente(String nomeCliente, String emailCliente, String localizacaoCliente, String cpfCliente) {
+		super(nomeCliente, emailCliente);
+		Utilitarios.NullException("Localização nulo", localizacaoCliente);
+		Utilitarios.NullException("CPF nulo", cpfCliente);
+		Utilitarios.EmptyException("Localização vazio", localizacaoCliente);
+		Utilitarios.EmptyException("CPF vazio", cpfCliente);
 		
-		if (localizacao == null) throw new NullPointerException("Localizacao nao pode ser nulo");
-		if (localizacao.trim().equals("")) throw new IllegalArgumentException("Localizacao nao pode ser vazio");
-		
-		if (cpf == null) throw new NullPointerException("Cpf nao pode ser nulo");
-		if (cpf.trim().equals("")) throw new IllegalArgumentException("Cpf nao pode ser vazio");
-
-		this.localizacao = localizacao;
-		this.cpf = cpf;
+		this.localizacao = localizacaoCliente;
+		this.cpf = cpfCliente;
 	}
 	
 	public String getCpf() {
 		return this.cpf;
 	}
 	
-	public void setLocalizacao(String localizacao) {
-		if (localizacao == null) throw new NullPointerException("Localizacao nao pode ser nulo");
-		if (localizacao.trim().equals("")) throw new IllegalArgumentException("Localizacao nao pode ser vazio");
-		this.localizacao = localizacao;
+	public void setLocalizacao(String localizacaoCliente) {
+		Utilitarios.NullException("Localização nulo", localizacaoCliente);
+		Utilitarios.EmptyException("Localização vazio", localizacaoCliente);
+		this.localizacao = localizacaoCliente;
 	}
 	
-	public void setNome(String nome) {
-		if (nome == null) throw new NullPointerException("Nome nao pode ser nulo");
-		if (nome.trim().equals("")) throw new IllegalArgumentException("Nome nao pode ser vazio");
-		this.nome = nome;
+	public void setNome(String nomeCliente) {
+		Utilitarios.NullException("Nome nulo", nomeCliente);
+		Utilitarios.EmptyException("Nome vazio", nomeCliente);
+		this.nome = nomeCliente;
 	}
 	
-	public void setEmail(String email) {
-		if (email == null) throw new NullPointerException("Email nao pode ser nulo");
-		if (email.trim().equals("")) throw new IllegalArgumentException("Email nao pode ser vazio");
-		this.email = email;
-	}
 	
 	@Override
 	public String toString() {
