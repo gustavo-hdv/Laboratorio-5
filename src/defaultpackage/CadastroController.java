@@ -43,6 +43,12 @@ public class CadastroController {
 		} return false;
 	}
 	
+	protected static boolean hasCliente(String cpfCliente) {
+		if (clientes.containsKey(cpfCliente)) {
+			return true;
+		} return false;
+	}
+	
 	protected static HashMap<String, Cliente> getMapaClientes() {
 		return clientes;
 	}

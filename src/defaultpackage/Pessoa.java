@@ -17,6 +17,7 @@ public class Pessoa {
 	public void setEmail(String email) {
 		Utilitarios.NullException("Email nulo", email);
 		Utilitarios.EmptyException("Email vazio", email);
+		
 		this.email = email;
 	}
 	

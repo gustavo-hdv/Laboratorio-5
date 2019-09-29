@@ -12,12 +12,14 @@ public class Fornecedor extends Pessoa {
 		super(nomeFornecedor, emailFornecedor);
 		Utilitarios.NullException("Telefone nulo", telefoneFornecedor);
 		Utilitarios.EmptyException("Telefone vazio", telefoneFornecedor);
+		
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
 	
 	public void setTelefone(String telefoneFornecedor) {
 		Utilitarios.NullException("Telefone nulo", telefoneFornecedor);
 		Utilitarios.EmptyException("Telefone vazio", telefoneFornecedor);
+		
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
 	
@@ -34,30 +36,55 @@ public class Fornecedor extends Pessoa {
 	}
 	
 	public void setProdutoValor(double valorProduto, String nomeProduto, String descricaoProduto) {
-		Utilitarios.NullException("Nome nulo", nomeProduto);
-		Utilitarios.NullException("Descricao nulo", descricaoProduto);
-		Utilitarios.EmptyException("Nome vazio", nomeProduto);
-		Utilitarios.EmptyException("Descricao vazio", descricaoProduto);
-		Utilitarios.NumberException("Valor negativo", valorProduto);
-		
-		ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
-		this.produtos.get(key).setValor(valorProduto);
+		if (hasProduto(nomeProduto, descricaoProduto)) {
+			Utilitarios.NullException("Nome nulo", nomeProduto);
+			Utilitarios.NullException("Descricao nulo", descricaoProduto);
+			Utilitarios.EmptyException("Nome vazio", nomeProduto);
+			Utilitarios.EmptyException("Descricao vazio", descricaoProduto);
+			Utilitarios.NumberException("Valor negativo", valorProduto);
+			
+			ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
+			this.produtos.get(key).setValor(valorProduto);
+			return;
+		}
+		throw new IllegalArgumentException("Produto não cadastrado.");
 	}
 	
 	public String getProduto(String nomeProduto, String descricaoProduto) {
-		Utilitarios.NullException("Nome nulo", nomeProduto);
-		Utilitarios.NullException("Descricao nulo", descricaoProduto);
-		Utilitarios.EmptyException("Nome vazio", nomeProduto);
-		Utilitarios.EmptyException("Descricao vazio", descricaoProduto);
-		
-		ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
-		return this.produtos.get(key).toString();
+		if (hasProduto(nomeProduto, descricaoProduto)) {
+			ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
+			return this.produtos.get(key).toString();
+		} 
+		throw new IllegalArgumentException("Produto não cadastrado.");
+	}
+	
+	public String getProdutos() {
+		String toStringProdutos = "";
+		int contador = produtos.size();
+		for (ArrayList<String> produtoKey : produtos.keySet()) {
+			if (contador != 0) {
+				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + " | " + System.lineSeparator();
+			} else {
+				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + System.lineSeparator();
+			}
+			contador--;
+		}
+		return toStringProdutos;
+	}
+	
+	public void removeProduto(String nomeProduto, String descricaoProduto) {
+		if (hasProduto(nomeProduto, descricaoProduto)) {
+			produtos.remove(Arrays.asList(nomeProduto, descricaoProduto));
+			return;
+		} 
+		throw new IllegalArgumentException("Produto não cadastrado.");
 	}
 	
 	public boolean hasProduto(String nomeProduto, String descricaoProduto) {
 		if (this.produtos.containsKey(Arrays.asList(nomeProduto, descricaoProduto))) {
 			return true;
-		} return false;
+		} 
+		return false;
 	}
 	
 	@Override

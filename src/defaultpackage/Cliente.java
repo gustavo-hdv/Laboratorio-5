@@ -31,7 +31,6 @@ public class Cliente extends Pessoa {
 		this.nome = nomeCliente;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return super.toString() + " - " + this.localizacao + " - " + this.email;
