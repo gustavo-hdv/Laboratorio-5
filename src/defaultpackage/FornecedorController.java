@@ -83,6 +83,7 @@ public class FornecedorController {
 			} else {
 				toStringProdutos += fornecedores.get(fornecedorKey).getProdutos() + System.lineSeparator();
 			}
+			contador--;
 		}
 		return toStringProdutos;
 	}
