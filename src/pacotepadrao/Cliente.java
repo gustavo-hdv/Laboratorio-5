@@ -1,4 +1,4 @@
-package defaultpackage;
+package pacotepadrao;
 
 /** Representação de um cliente
  *  Recebe: Nome, Email, CPF e Localização

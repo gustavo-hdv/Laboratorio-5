@@ -1,4 +1,4 @@
-package defaultpackage;
+package pacotepadrao;
 
 /** Representação de um Fornecedor de Produtos */
 
@@ -101,8 +101,8 @@ public class Fornecedor extends Pessoa {
 		String toStringProdutos = "";
 		int contador = produtos.size();
 		for (ArrayList<String> produtoKey : produtos.keySet()) {
-			if (contador != 0) {
-				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + " | " + System.lineSeparator();
+			if (contador != 1) {
+				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + " | ";
 			} else {
 				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + System.lineSeparator();
 			}
@@ -157,7 +157,7 @@ public class Fornecedor extends Pessoa {
 		return result;
 	}
 
-	/** equals para nome do Fronecedor*/
+	/** equals para Nome do Fornecedor*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -166,7 +166,7 @@ public class Fornecedor extends Pessoa {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Fornecedor other = (Fornecedor) obj;
 		if (super.nome == null) {
 			if (other.nome != null)
 				return false;

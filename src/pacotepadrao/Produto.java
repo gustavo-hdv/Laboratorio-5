@@ -1,4 +1,4 @@
-package defaultpackage;
+package pacotepadrao;
 
 /** Representação de um Produto
  *  Recebe: Nome, Descrição e Valor*/

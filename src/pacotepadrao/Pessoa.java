@@ -1,4 +1,4 @@
-package defaultpackage;
+package pacotepadrao;
 
 /** Representação de uma pessoa.
  *  Recebe: Nome e Email

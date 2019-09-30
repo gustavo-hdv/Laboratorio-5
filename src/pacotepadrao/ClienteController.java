@@ -1,4 +1,4 @@
-package defaultpackage;
+package pacotepadrao;
 
 /** Representação de um Controlador de Clientes*/
 
@@ -31,7 +31,7 @@ public class ClienteController {
 	 */
 	public String getCliente(String cpfCliente) {
 		if (hasCliente(cpfCliente)) {
-			return this.clientes.get(cpfCliente).toString() + System.lineSeparator();
+			return this.clientes.get(cpfCliente).toString();
 		}
 		throw new IllegalArgumentException("Cliente não cadastrado.");
 	}
@@ -45,8 +45,8 @@ public class ClienteController {
 		String toStringClientes = "";
 		int contador = this.clientes.size();
 		for (String cpfCliente : this.clientes.keySet()) {
-			if (contador != 0) {
-				toStringClientes += this.clientes.get(cpfCliente).toString() + " | " + System.lineSeparator();
+			if (contador != 1) {
+				toStringClientes += this.clientes.get(cpfCliente).toString() + " | ";
 			} else {
 				toStringClientes += this.clientes.get(cpfCliente).toString() + System.lineSeparator();
 			}
@@ -65,7 +65,9 @@ public class ClienteController {
 			Utilitarios.NullException("Localização nulo", localizacaoCliente);
 			Utilitarios.EmptyException("Localização vazio", localizacaoCliente);
 			this.clientes.get(cpfCliente).setLocalizacao(localizacaoCliente);
+			return;
 		}
+		throw new IllegalArgumentException("Cliente não cadastrado.");
 	}
 	
 	/** Determina o nome de um Cliente
@@ -78,6 +80,7 @@ public class ClienteController {
 			Utilitarios.NullException("Nome nulo", nomeCliente);
 			Utilitarios.EmptyException("Nome vazio", nomeCliente);
 			this.clientes.get(cpfCliente).setNome(nomeCliente);
+			return;
 		} 
 		throw new IllegalArgumentException("Cliente não cadastrado.");
 	}
@@ -92,6 +95,7 @@ public class ClienteController {
 			Utilitarios.NullException("Email nulo", emailCliente);
 			Utilitarios.EmptyException("Email vazio", emailCliente);
 			this.clientes.get(cpfCliente).setEmail(emailCliente);
+			return;
 		}
 		throw new IllegalArgumentException("Cliente não cadastrado.");
 	}
