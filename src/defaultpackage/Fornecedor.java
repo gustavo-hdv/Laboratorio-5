@@ -1,13 +1,23 @@
 package defaultpackage;
 
+/** Representação de um Fornecedor de Produtos */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class Fornecedor extends Pessoa {
+	/** Telefone do Fornecedor (String) */
 	private String telefoneFornecedor;
+	/** Mapa de Produtos por nome e descrição */
 	private HashMap<ArrayList<String>, Produto> produtos = new HashMap<ArrayList<String>, Produto>();
 	
+	/** Construtor: constrói um Fornecedor com Nome, Email e Telefone
+	 * 
+	 * @param Nome do Fornecedor (String)
+	 * @param Email do Fornecedor (String)
+	 * @param Telefone do Fornecedor (String)
+	 */
 	public Fornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
 		super(nomeFornecedor, emailFornecedor);
 		Utilitarios.NullException("Telefone nulo", telefoneFornecedor);
@@ -16,6 +26,10 @@ public class Fornecedor extends Pessoa {
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
 	
+	/** Determina o Telefone do Fornecedor
+	 * 
+	 * @param Telefone do Fornecedor (String)
+	 */
 	public void setTelefone(String telefoneFornecedor) {
 		Utilitarios.NullException("Telefone nulo", telefoneFornecedor);
 		Utilitarios.EmptyException("Telefone vazio", telefoneFornecedor);
@@ -23,6 +37,12 @@ public class Fornecedor extends Pessoa {
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
 	
+	/** Cadastra um Produto na lista do Fornecedor
+	 * 
+	 * @param Nome do Produto (String)
+	 * @param Descrição do Produto (String)
+	 * @param Valor do Produto (double)
+	 */
 	public void cadastraProduto(String nomeProduto, String descricaoProduto, double valorProduto) {
 		Utilitarios.NullException("Nome nulo", nomeProduto);
 		Utilitarios.NullException("Descricao nulo", descricaoProduto);
@@ -35,6 +55,12 @@ public class Fornecedor extends Pessoa {
 		this.produtos.put(key, product);
 	}
 	
+	/** Determina o valor de um Produto
+	 * 
+	 * @param Valor do Produto (double)
+	 * @param Nome do Produto (String)
+	 * @param Descrição do Produto (String)
+	 */
 	public void setProdutoValor(double valorProduto, String nomeProduto, String descricaoProduto) {
 		if (hasProduto(nomeProduto, descricaoProduto)) {
 			Utilitarios.NullException("Nome nulo", nomeProduto);
@@ -50,6 +76,14 @@ public class Fornecedor extends Pessoa {
 		throw new IllegalArgumentException("Produto não cadastrado.");
 	}
 	
+	/** Representação de um Produto
+	 *  Estilo: nome - descrição - valor
+	 *  
+	 *  @param Nome do Produto (String)
+	 *  @param Descriçaõ do Produto (String)
+	 *
+	 *  @return nome - descrição - valor (String)
+	 */
 	public String getProduto(String nomeProduto, String descricaoProduto) {
 		if (hasProduto(nomeProduto, descricaoProduto)) {
 			ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
@@ -58,6 +92,11 @@ public class Fornecedor extends Pessoa {
 		throw new IllegalArgumentException("Produto não cadastrado.");
 	}
 	
+	/** Representação de todos os Produtos do Fornecedor
+	 *  Estilo: NomeFornecedor - NomeProduto - Descrição - Valor | ...
+	 *  
+	 * @return NomeFornecedor - NomeProduto - Descrição - Valor | ... (String)
+	 */
 	public String getProdutos() {
 		String toStringProdutos = "";
 		int contador = produtos.size();
@@ -72,6 +111,11 @@ public class Fornecedor extends Pessoa {
 		return toStringProdutos;
 	}
 	
+	/** Remove um Produto cadastrado da lista do Fornecedor
+	 * 
+	 * @param Nome do Produto (String)
+	 * @param Descrição do Produto (String)
+	 */
 	public void removeProduto(String nomeProduto, String descricaoProduto) {
 		if (hasProduto(nomeProduto, descricaoProduto)) {
 			produtos.remove(Arrays.asList(nomeProduto, descricaoProduto));
@@ -80,6 +124,13 @@ public class Fornecedor extends Pessoa {
 		throw new IllegalArgumentException("Produto não cadastrado.");
 	}
 	
+	/** Verifica se existe um produto cadastrado na lista do Fornecedor
+	 * 
+	 * @param Nome do Produto (String)
+	 * @param Descrição do Produto (String)
+	 * 
+	 * @return true or false (boolean)
+	 */
 	public boolean hasProduto(String nomeProduto, String descricaoProduto) {
 		if (this.produtos.containsKey(Arrays.asList(nomeProduto, descricaoProduto))) {
 			return true;
@@ -87,11 +138,17 @@ public class Fornecedor extends Pessoa {
 		return false;
 	}
 	
+	/** Representação de um Fornecedor
+	 *  Estilo: nome - email - telefone
+	 *  
+	 *  @return nome - email - telefone (String)
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + " - " + super.email + " - " + this.telefoneFornecedor;
 	}
 	
+	/** hashCode para nome do Fornecedor*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +157,7 @@ public class Fornecedor extends Pessoa {
 		return result;
 	}
 
+	/** equals para nome do Fronecedor*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

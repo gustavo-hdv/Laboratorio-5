@@ -1,9 +1,23 @@
 package defaultpackage;
 
+/** Representação de um cliente
+ *  Recebe: Nome, Email, CPF e Localização
+ */
+
 public class Cliente extends Pessoa {
+	/** Localização do Cliente (String)*/
 	private String localizacao;
+	/** CPF do Cliente (String)*/
 	private String cpf;
 	
+	/** Construtor:
+	 * 	Constrói um cliente com nome, email, localização, cpf.
+	 * 
+	 * @param Nome do Cliente (String)
+	 * @param Email do Cliente (String)
+	 * @param Localização do Cliente (String)
+	 * @param CPF do Cliente (String)
+	 */
 	public Cliente(String nomeCliente, String emailCliente, String localizacaoCliente, String cpfCliente) {
 		super(nomeCliente, emailCliente);
 		Utilitarios.NullException("Localização nulo", localizacaoCliente);
@@ -15,27 +29,37 @@ public class Cliente extends Pessoa {
 		this.cpf = cpfCliente;
 	}
 	
-	public String getCpf() {
-		return this.cpf;
-	}
-	
+	/** Determina a localização do Cliente
+	 * 
+	 * @param Localização do Cliente (String)
+	 */
 	public void setLocalizacao(String localizacaoCliente) {
 		Utilitarios.NullException("Localização nulo", localizacaoCliente);
 		Utilitarios.EmptyException("Localização vazio", localizacaoCliente);
 		this.localizacao = localizacaoCliente;
 	}
 	
+	/** Determina o nome do Cliente
+	 * 
+	 * @param Nome do Cliente (String)
+	 */
 	public void setNome(String nomeCliente) {
 		Utilitarios.NullException("Nome nulo", nomeCliente);
 		Utilitarios.EmptyException("Nome vazio", nomeCliente);
 		this.nome = nomeCliente;
 	}
 	
+	/** Representação de um Cliente estilo:
+	 *  Nome - Localização - Email
+	 *
+	 *	@return nome - localização - email (String)
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + " - " + this.localizacao + " - " + this.email;
 	}
 
+	/** hashCode para CPF do Cliente*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +68,7 @@ public class Cliente extends Pessoa {
 		return result;
 	}
 
+	/** equals para CPF do Cliente*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
