@@ -34,6 +34,7 @@ public class FornecedorController {
 		if (hasFornecedor(nomeFornecedor)) {
 			if (!hasProduto(nomeProduto, descricaoProduto, nomeFornecedor)) {
 				this.fornecedores.get(nomeFornecedor).cadastraProduto(nomeProduto, descricaoProduto, valorProduto);
+				return;
 			} throw new IllegalArgumentException("Produto já cadastrado");
 		} throw new IllegalArgumentException("Fornecedor não cadastrado.");
 	}
@@ -47,7 +48,7 @@ public class FornecedorController {
 	 */
 	public String getFornecedor(String nomeFornecedor) {
 		if (hasFornecedor(nomeFornecedor)) {
-			return this.getFornecedor(nomeFornecedor).toString() + System.lineSeparator();
+			return this.fornecedores.get(nomeFornecedor).toString();
 		}
 		throw new IllegalArgumentException("Fornecedor não cadastrado.");
 	}
@@ -61,8 +62,8 @@ public class FornecedorController {
 		String toStringFornecedores = "";
 		int contador = this.fornecedores.size();
 		for (String nomeFornecedor: this.fornecedores.keySet()) {
-			if (contador != 0) {
-				toStringFornecedores += this.fornecedores.get(nomeFornecedor).toString() + " | " + System.lineSeparator();
+			if (contador != 1) {
+				toStringFornecedores += this.fornecedores.get(nomeFornecedor).toString() + " | ";
 			} else {
 				toStringFornecedores += this.fornecedores.get(nomeFornecedor).toString() + System.lineSeparator();
 			}
@@ -157,8 +158,8 @@ public class FornecedorController {
 		String toStringProdutos = "";
 		int contador = this.fornecedores.size();
 		for (String fornecedorKey : this.fornecedores.keySet()) {
-			if (contador != 0) {
-				toStringProdutos += this.fornecedores.get(fornecedorKey).getProdutos() + " | " + System.lineSeparator();
+			if (contador != 1) {
+				toStringProdutos += this.fornecedores.get(fornecedorKey).getProdutos() + " | ";
 			} else {
 				toStringProdutos += this.fornecedores.get(fornecedorKey).getProdutos() + System.lineSeparator();
 			}
@@ -188,6 +189,7 @@ public class FornecedorController {
 		if (hasFornecedor(nomeFornecedor)) {
 			if (hasProduto(nomeProduto, descricaoProduto, nomeFornecedor)) {
 				this.fornecedores.get(nomeFornecedor).removeProduto(nomeProduto, descricaoProduto);
+				return;
 			} throw new IllegalArgumentException("Produto não cadastrado.");
 		} throw new IllegalArgumentException("Fornecedor não cadastrado.");
 	}

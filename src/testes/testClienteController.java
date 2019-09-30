@@ -13,7 +13,7 @@ class testClienteController {
 	private ClienteController clienteController = new ClienteController();
 	
 	@Test
-	void testCadastraCliente() {
+	void Construct() {
 		try {
 			clienteController.cadastraCliente("Gustavo", "@ccc", "CG", "12345");
 		} catch (Exception e) {
@@ -27,6 +27,61 @@ class testClienteController {
 		}
 	}
 
+	@Test
+	void NullConstruct() {
+		try {
+			clienteController.cadastraCliente(null, "@test", "testCity", "733573-0");
+			fail("Era esperado exceção ao passar nome nulo.");
+		} catch (NullPointerException e) {
+			
+		}
+		try {
+			clienteController.cadastraCliente("Teste", null, "testCity", "733573-0");
+			fail("Era esperado exceção ao passar email nulo.");
+		} catch (NullPointerException e) {
+			
+		}
+		try {
+			clienteController.cadastraCliente("Teste", "@test", null, "733573-0");
+			fail("Era esperado exceção ao passar localização nulo.");
+		} catch (NullPointerException e) {
+			
+		}
+		try {
+			clienteController.cadastraCliente("Teste", "@test", "testCity", null);
+			fail("Era esperado exceção ao passar cpf nulo.");
+		} catch (NullPointerException e) {
+			
+		}
+	}
+	
+	void EmptyConstruct() {
+		try {
+			clienteController.cadastraCliente(" ", "@test", "testCity", "733573-0");
+			fail("Era esperado exceção ao passar nome vazio.");
+		} catch (IllegalArgumentException e) {
+			
+		}
+		try {
+			clienteController.cadastraCliente("Teste", " ", "testCity", "733573-0");
+			fail("Era esperado exceção ao passar email vazio.");
+		} catch (IllegalArgumentException e) {
+			
+		}
+		try {
+			clienteController.cadastraCliente("Teste", "@test", "", "733573-0");
+			fail("Era esperado exceção ao passar localização vazio.");
+		} catch (IllegalArgumentException e) {
+			
+		}
+		try {
+			clienteController.cadastraCliente("Teste", "@test", "testCity", "");
+			fail("Era esperado exceção ao passar cpf vazio.");
+		} catch (IllegalArgumentException e) {
+			
+		}
+	}
+	
 	@Test
 	void testGetCliente() {
 		try {
@@ -150,5 +205,4 @@ class testClienteController {
 		
 		}
 	}
-
 }

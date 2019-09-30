@@ -201,8 +201,14 @@ class testFornecedor {
 	@Test
 	void testRemoveProduto() {
 		fornecedor1.cadastraProduto("Mouse", "MousePC", 78.99);
+		fornecedor1.cadastraProduto("Teclado", "TecladoPC", 78.99);
 		try {
 			fornecedor1.removeProduto("Mouse", "MousePC");
+		} catch (Exception e) {
+			fail("Não era esperado exceção");
+		}
+		try {
+			fornecedor1.removeProduto("Teclado", "TecladoPC");
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}
