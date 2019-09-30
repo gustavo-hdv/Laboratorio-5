@@ -1,12 +1,11 @@
 package defaultpackage;
 
 public class Facade {
-	private CadastroController cadastroController = new CadastroController();
 	private FornecedorController fornecedorController = new FornecedorController();
 	private ClienteController clienteController = new ClienteController();
 	
 	public String cadastraCliente(String nomeCliente, String emailCliente, String localizacaoCliente, String cpfCliente) {
-		return this.cadastroController.cadastraCliente(nomeCliente, emailCliente, localizacaoCliente, cpfCliente);
+		return this.clienteController.cadastraCliente(nomeCliente, emailCliente, localizacaoCliente, cpfCliente);
 	}
 	
 	public String getCliente(String cpfCliente) {
@@ -34,7 +33,7 @@ public class Facade {
 	}
 	
 	public String cadastraFornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
-		return this.cadastroController.cadastraFornecedor(nomeFornecedor, emailFornecedor, telefoneFornecedor);
+		return this.fornecedorController.cadastraFornecedor(nomeFornecedor, emailFornecedor, telefoneFornecedor);
 	}
 	
 	public String getFornecedor(String nomeFornecedor) {
@@ -58,7 +57,7 @@ public class Facade {
 	}
 	
 	public void cadastraProduto(String nomeProduto, String descricaoProduto, double valorProduto, String nomeFornecedor) {
-		this.cadastroController.cadastraProduto(nomeProduto, descricaoProduto, valorProduto, nomeFornecedor);
+		this.fornecedorController.cadastraProduto(nomeProduto, descricaoProduto, valorProduto, nomeFornecedor);
 	}
 	
 	public String getProdutoFornecedor(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
