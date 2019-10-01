@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="testes.testProduto" project="SAGA" file="/SAGA/src/testes/testProduto.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="259" width="338" x="347" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="testes.testPessoa" project="SAGA" file="/SAGA/src/testes/testPessoa.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="169" width="132" x="725" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="testes.testClienteController" project="SAGA" 
+    file="/SAGA/src/testes/testClienteController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="187" width="312" x="897" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="testes.testFornecedor" project="SAGA" file="/SAGA/src/testes/testFornecedor.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="421" width="407" x="1249" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="testes.testFornecedorController" project="SAGA" 
+    file="/SAGA/src/testes/testFornecedorController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="313" width="380" x="1696" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="testes.testCliente" project="SAGA" file="/SAGA/src/testes/testCliente.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="313" width="455" x="2116" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="testes.testUtilitarios" project="SAGA" 
+    file="/SAGA/src/testes/testUtilitarios.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="151" width="202" x="2611" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

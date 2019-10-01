@@ -20,12 +20,16 @@ public class Cliente extends Pessoa {
 	 */
 	public Cliente(String nomeCliente, String emailCliente, String localizacaoCliente, String cpfCliente) {
 		super(nomeCliente, emailCliente);
-		Utilitarios.NullException("Localização nulo", localizacaoCliente);
-		Utilitarios.NullException("CPF nulo", cpfCliente);
-		Utilitarios.EmptyException("Localização vazio", localizacaoCliente);
-		Utilitarios.EmptyException("CPF vazio", cpfCliente);
-		
+		Utilitarios.NullException("Erro no cadastro: localizacao nao pode ser nula.", localizacaoCliente);
+		Utilitarios.NullException("Erro no cadastro: cpf nao pode ser nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro no cadastro: localizacao nao pode ser vazia.", localizacaoCliente);
+		Utilitarios.EmptyException("Erro no cadastro: cpf nao pode ser vazio.", cpfCliente);
+	
 		this.localizacao = localizacaoCliente;
+		
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro no cadastro: cpf invalido.");
+		}
 		this.cpf = cpfCliente;
 	}
 	

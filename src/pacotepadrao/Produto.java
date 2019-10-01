@@ -1,9 +1,8 @@
 package pacotepadrao;
 
 /** Representação de um Produto
- *  Recebe: Nome, Descrição e Valor*/
-
-import java.text.DecimalFormat;
+ *  Recebe: Nome, Descrição e Valor
+ */
 
 public class Produto {
 	/** Nome do Produto (String)*/
@@ -46,9 +45,8 @@ public class Produto {
 	 * @return nome - descrição - valor (String)
 	 */
 	@Override
-	public String toString() {
-		DecimalFormat df2 = new DecimalFormat("#.##");
-		return this.nome + " - " + this.descricao + " - R$" + df2.format(this.valor);
+	public String toString() {	
+		return String.format("%s - %s - R$%.2f", this.nome, this.descricao, this.valor);
 	}
 	
 	/** hashCode para Nome e Descrição do Produto*/

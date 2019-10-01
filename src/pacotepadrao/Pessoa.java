@@ -16,10 +16,10 @@ public class Pessoa {
 	 * @param Email da Pessoa (String)
 	 */
 	public Pessoa(String nome, String email) {
-		Utilitarios.NullException("Nome nulo", nome);
-		Utilitarios.NullException("Email nulo", email);
-		Utilitarios.EmptyException("Nome vazio", nome);
-		Utilitarios.EmptyException("Email vazio", email);
+		Utilitarios.NullException("Erro no cadastro: nome nao pode ser nulo.", nome);
+		Utilitarios.NullException("Erro no cadastro: email nao pode ser nulo.", email);
+		Utilitarios.EmptyException("Erro no cadastro: nome nao pode ser vazio.", nome);
+		Utilitarios.EmptyException("Erro no cadastro: email nao pode ser vazio.", email);
 		
 		this.nome = nome;
 		this.email = email;

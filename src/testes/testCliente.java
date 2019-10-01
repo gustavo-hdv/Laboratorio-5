@@ -10,16 +10,16 @@ import pacotepadrao.Cliente;
 * Representação de testes da classe Cliente
 */
 class testCliente {
-	private Cliente cliente1 = new Cliente("Gustavo", "@ccc", "Campina Grande", "9999999-9");
-	private Cliente cliente2 = new Cliente("Ovatsug", "@hotmail", "Campina Grande", "1111111-1");
-	private Cliente cliente3 = new Cliente("TwoSouls", "@gmail", "Campina Grande", "9999999-9");
-	private Cliente cliente4 = new Cliente("Gustavo", "@hotmail", "Campina Grande", "1111111");
+	private Cliente cliente1 = new Cliente("Gustavo", "@ccc", "Campina Grande", "9999999-999");
+	private Cliente cliente2 = new Cliente("Ovatsug", "@hotmail", "Campina Grande", "1111111-111");
+	private Cliente cliente3 = new Cliente("TwoSouls", "@gmail", "Campina Grande", "9999999-999");
+	private Cliente cliente4 = new Cliente("Gustavo", "@hotmail", "Campina Grande", "11111111111");
 	
 	@Test
 	@SuppressWarnings("unused")
 	void Construct() {
 		try {
-			Cliente testCliente = new Cliente("Teste", "@test", "testCity", "733573-0");
+			Cliente testCliente = new Cliente("Teste", "@test", "testCity", "9999999-999");
 		} catch (Exception e) {
 			fail("Não era esperado uma exceção");
 		}
@@ -29,19 +29,19 @@ class testCliente {
 	@SuppressWarnings("unused")
 	void NullConstruct() {
 		try {
-			Cliente testCliente = new Cliente(null, "@test", "testCity", "733573-0");
+			Cliente testCliente = new Cliente(null, "@test", "testCity", "9999999-999");
 			fail("Era esperado exceção ao passar nome nulo.");
 		} catch (NullPointerException e) {
 			
 		}
 		try {
-			Cliente testCliente = new Cliente("Teste", null, "testCity", "733573-0");
+			Cliente testCliente = new Cliente("Teste", null, "testCity", "9999999-999");
 			fail("Era esperado exceção ao passar email nulo.");
 		} catch (NullPointerException e) {
 			
 		}
 		try {
-			Cliente testCliente = new Cliente("Teste", "@test", null, "733573-0");
+			Cliente testCliente = new Cliente("Teste", "@test", null, "9999999-999");
 			fail("Era esperado exceção ao passar localização nulo.");
 		} catch (NullPointerException e) {
 			
@@ -57,19 +57,19 @@ class testCliente {
 	@SuppressWarnings("unused")
 	void EmptyConstruct() {
 		try {
-			Cliente testCliente = new Cliente(" ", "@test", "testCity", "733573-0");
+			Cliente testCliente = new Cliente(" ", "@test", "testCity", "9999999-999");
 			fail("Era esperado exceção ao passar nome vazio.");
 		} catch (IllegalArgumentException e) {
 			
 		}
 		try {
-			Cliente testCliente = new Cliente("Teste", " ", "testCity", "733573-0");
+			Cliente testCliente = new Cliente("Teste", " ", "testCity", "9999999-999");
 			fail("Era esperado exceção ao passar email vazio.");
 		} catch (IllegalArgumentException e) {
 			
 		}
 		try {
-			Cliente testCliente = new Cliente("Teste", "@test", "", "733573-0");
+			Cliente testCliente = new Cliente("Teste", "@test", "", "9999999-999");
 			fail("Era esperado exceção ao passar localização vazio.");
 		} catch (IllegalArgumentException e) {
 			
@@ -91,7 +91,7 @@ class testCliente {
 	void testToString() {
 		assertEquals(cliente2.toString(), "Ovatsug - Campina Grande - @hotmail");
 	}
-
+	
 	@Test
 	void testSetLocalizacao() {
 		try {

@@ -62,18 +62,18 @@ public class Fornecedor extends Pessoa {
 	 * @param Descrição do Produto (String)
 	 */
 	public void setProdutoValor(double valorProduto, String nomeProduto, String descricaoProduto) {
-		if (hasProduto(nomeProduto, descricaoProduto)) {
-			Utilitarios.NullException("Nome nulo", nomeProduto);
-			Utilitarios.NullException("Descricao nulo", descricaoProduto);
-			Utilitarios.EmptyException("Nome vazio", nomeProduto);
-			Utilitarios.EmptyException("Descricao vazio", descricaoProduto);
-			Utilitarios.NumberException("Valor negativo", valorProduto);
-			
+		Utilitarios.NullException("Erro na edicao de produto: nome nao pode ser vazia.", nomeProduto);
+		Utilitarios.NullException("Erro na edicao de produto: descricao nao pode ser nulo.", descricaoProduto);
+		Utilitarios.EmptyException("Erro na edicao de produto: nome nao pode ser vazio.", nomeProduto);
+		Utilitarios.EmptyException("Erro na edicao de produto: descricao nao pode ser vazia.", descricaoProduto);
+		Utilitarios.NumberException("Erro na edicao de produto: preco invalido.", valorProduto);
+		
+		if (hasProduto(nomeProduto, descricaoProduto)) {	
 			ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
 			this.produtos.get(key).setValor(valorProduto);
 			return;
 		}
-		throw new IllegalArgumentException("Produto não cadastrado.");
+		throw new IllegalArgumentException("Erro na edicao de produto: produto nao existe.");
 	}
 	
 	/** Representação de um Produto
@@ -84,27 +84,27 @@ public class Fornecedor extends Pessoa {
 	 *
 	 *  @return nome - descrição - valor (String)
 	 */
-	public String getProduto(String nomeProduto, String descricaoProduto) {
+	public String exibeProduto(String nomeProduto, String descricaoProduto) {
 		if (hasProduto(nomeProduto, descricaoProduto)) {
 			ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
 			return this.produtos.get(key).toString();
 		} 
-		throw new IllegalArgumentException("Produto não cadastrado.");
+		throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 	}
 	
 	/** Representação de todos os Produtos do Fornecedor
-	 *  Estilo: NomeFornecedor - NomeProduto - Descrição - Valor | ...
+	 *  Estilo: NomeFornecedor - NomeProduto - Descrição - Valor, ...
 	 *  
-	 * @return NomeFornecedor - NomeProduto - Descrição - Valor | ... (String)
+	 * @return NomeFornecedor - NomeProduto - Descrição - Valor, ... (String)
 	 */
-	public String getProdutos() {
+	public String exibeProdutos() {
 		String toStringProdutos = "";
 		int contador = produtos.size();
 		for (ArrayList<String> produtoKey : produtos.keySet()) {
 			if (contador != 1) {
-				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + " | ";
+				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + ", ";
 			} else {
-				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + System.lineSeparator();
+				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString();
 			}
 			contador--;
 		}
@@ -121,7 +121,7 @@ public class Fornecedor extends Pessoa {
 			produtos.remove(Arrays.asList(nomeProduto, descricaoProduto));
 			return;
 		} 
-		throw new IllegalArgumentException("Produto não cadastrado.");
+		throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 	}
 	
 	/** Verifica se existe um produto cadastrado na lista do Fornecedor

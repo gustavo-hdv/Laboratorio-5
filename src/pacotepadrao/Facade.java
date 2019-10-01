@@ -1,5 +1,7 @@
 package pacotepadrao;
 
+import easyaccept.EasyAccept;
+
 /** Representação de um delegador*/
 
 public class Facade {
@@ -7,6 +9,11 @@ public class Facade {
 	private FornecedorController fornecedorController = new FornecedorController();
 	/** Controlador de Clientes*/
 	private ClienteController clienteController = new ClienteController();
+	
+	public static void main(String[] args) {
+		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt" };
+		EasyAccept.main(args);
+	}
 	
 	/** Cadastra um Cliente
 	 * 
@@ -16,8 +23,8 @@ public class Facade {
 	 * 
 	 * @return CPF do Cliente(String)
 	 */
-	public String cadastraCliente(String nomeCliente, String emailCliente, String localizacaoCliente, String cpfCliente) {
-		return this.clienteController.cadastraCliente(nomeCliente, emailCliente, localizacaoCliente, cpfCliente);
+	public String adicionaCliente(String cpfCliente, String nomeCliente, String emailCliente, String localizacaoCliente) {
+		return this.clienteController.adicionaCliente(nomeCliente, emailCliente, localizacaoCliente, cpfCliente);
 	}
 	
 	/** Representação de um Cliente
@@ -26,8 +33,8 @@ public class Facade {
 	 * 
 	 * @return nome - localização - email (String)
 	 */
-	public String getCliente(String cpfCliente) {
-		return clienteController.getCliente(cpfCliente);
+	public String exibeCliente(String cpfCliente) {
+		return this.clienteController.exibeCliente(cpfCliente);
 	}
 	
 	/** Representação de todos os Clientes
@@ -35,8 +42,8 @@ public class Facade {
 	 * 
 	 * @return nome - localização - email (String) | ...
 	 */
-	public String getClientes() {
-		return clienteController.getClientes();
+	public String exibeClientes() {
+		return this.clienteController.getClientes();
 	}
 	
 	/** Determina o email de um Cliente
@@ -44,26 +51,8 @@ public class Facade {
 	 * @param Email do Cliente (String)
 	 * @param CPF do Cliente (String)
 	 */
-	public void setEmailCliente(String emailCliente, String cpfCliente) {
-		this.clienteController.setClienteEmail(emailCliente, cpfCliente);
-	}
-	
-	/** Determina o nome de um Cliente
-	 * 
-	 * @param Nome do Cliente (String)
-	 * @param CPF do Cliente (String)
-	 */
-	public void setNomeCliente(String nomeCliente, String cpfCliente) {
-		this.clienteController.setClienteNome(nomeCliente, cpfCliente);
-	}
-	
-	/** Determina a localização de um Cliente
-	 * 
-	 * @param Localização do Cliente (String)
-	 * @param CPF do Cliente (String)
-	 */
-	public void setLocalizacaoCliente(String localizacaoCliente, String cpfCliente) {
-		this.clienteController.setClienteLocalizacao(localizacaoCliente, cpfCliente);
+	public void editaCliente(String cpfCliente, String atributo, String novoValor) {
+		this.clienteController.editaCliente(cpfCliente, atributo, novoValor);
 	}
 	
 	/** Remove o Cliente do cadastro
@@ -82,8 +71,8 @@ public class Facade {
 	 *
 	 * @return Nome do Fornecedor (String)
 	 */
-	public String cadastraFornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
-		return this.fornecedorController.cadastraFornecedor(nomeFornecedor, emailFornecedor, telefoneFornecedor);
+	public String adicionaFornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
+		return this.fornecedorController.adicionaFornecedor(nomeFornecedor, emailFornecedor, telefoneFornecedor);
 	}
 	
 	/** Representação do Fornecedor
@@ -93,8 +82,8 @@ public class Facade {
 	 *  
 	 *  @return nome - email - telefone (String)
 	 */
-	public String getFornecedor(String nomeFornecedor) {
-		return this.fornecedorController.getFornecedor(nomeFornecedor);
+	public String exibeFornecedor(String nomeFornecedor) {
+		return this.fornecedorController.exibeFornecedor(nomeFornecedor);
 	}
 	
 	/** Representação de todos os Fornecedores
@@ -106,22 +95,14 @@ public class Facade {
 		return this.fornecedorController.getFornecedores();
 	}
 	
-	/** Determina o Email de um Fornecedor
+	/** Edita um atributo do fornecedor
 	 * 
-	 * @param Email do Fornecedor (String)
-	 * @param Nome do Fornecedor (String)
+	 * @param nome do fornecedor (String)
+	 * @param atributo a ser editado (String)
+	 * @param novo valor do atributo (String)
 	 */
-	public void setEmailFornecedor(String emailFornecedor, String nomeFornecedor) {
-		this.fornecedorController.setFornecedorEmail(emailFornecedor, nomeFornecedor);
-	}
-	
-	/** Determina o Telefone de um Fornecedor
-	 * 
-	 * @param Telefone do Fornecedor (String)
-	 * @param Nome do Fornecedor (String)
-	 */
-	public void setTelefoneFornecedor(String telefoneFornecedor, String nomeFornecedor) {
-		this.fornecedorController.setFornecedorTelefone(telefoneFornecedor, nomeFornecedor);
+	public void editaFornecedor(String nomeFornecedor, String atributo, String novoValor) {
+		this.fornecedorController.editaFornecedor(nomeFornecedor, atributo, novoValor);
 	}
 	
 	/** Remove um Fornecedor cadastrado
@@ -139,8 +120,8 @@ public class Facade {
 	 * @param Valor do Produto (double)
 	 * @param Nome do Fornecedor (String)
 	 */
-	public void cadastraProduto(String nomeProduto, String descricaoProduto, double valorProduto, String nomeFornecedor) {
-		this.fornecedorController.cadastraProduto(nomeProduto, descricaoProduto, valorProduto, nomeFornecedor);
+	public void adicionaProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double valorProduto) {
+		this.fornecedorController.adicionaProduto(nomeProduto, descricaoProduto, valorProduto, nomeFornecedor);
 	}
 	
 	/** Representação de um Produto
@@ -152,8 +133,8 @@ public class Facade {
 	 *  
 	 *  @return nome - descrição - valor(2df) (String)
 	 */
-	public String getProdutoFornecedor(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		return this.fornecedorController.getProduto(nomeProduto, descricaoProduto, nomeFornecedor) + System.lineSeparator();
+	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
+		return this.fornecedorController.exibeProduto(nomeProduto, descricaoProduto, nomeFornecedor) + System.lineSeparator();
 	}
 	
 	/** Representação de todos os Produtos de um Fornecedor
@@ -163,8 +144,8 @@ public class Facade {
 	 *  
 	 *  @return NomeFornecedor - nomeProduto - descrição - valor | ... (String)
 	 */
-	public String getProdutosFornecedor(String nomeFornecedor) {
-		return this.fornecedorController.getProdutos(nomeFornecedor);
+	public String exibeProdutosFornecedor(String nomeFornecedor) {
+		return this.fornecedorController.exibeProdutos(nomeFornecedor);
 	}
 	
 	/** Representação de todos os Produtos dos Fornecedores
@@ -172,8 +153,8 @@ public class Facade {
 	 *  
 	 *  @return NomeFornecedor - nomeProduto - descrição - valor | ... (String)
 	 */
-	public String getProdutosFornecedores() {
-		return this.fornecedorController.getProdutos();
+	public String exibeProdutosFornecedores() {
+		return this.fornecedorController.exibeProdutos();
 	}
 	
 	/** Determina o valor do Produto
@@ -183,9 +164,10 @@ public class Facade {
 	 * @param Descrição do Produto (String)
 	 * @param Nome do Fornecedor (String)
 	 */
-	public void setProdutoValor(double valorProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		this.fornecedorController.setProdutoValor(valorProduto, nomeProduto, descricaoProduto, nomeFornecedor);
+	public void editaProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor, double novoValor) {
+		this.fornecedorController.editaProduto(nomeProduto, descricaoProduto, nomeFornecedor, novoValor);
 	}
+	
 	
 	/** Remove um Produto de um Fornecedor
 	 * 

@@ -15,7 +15,7 @@ class testFornecedorController {
 	@Test
 	void Construct() {
 		try {
-			fornecedorController.cadastraFornecedor("test", "@test", "73573");
+			fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}
@@ -24,19 +24,19 @@ class testFornecedorController {
 	@Test
 	void NullConstruct() {
 		try {
-			fornecedorController.cadastraFornecedor(null, "@test", "73573");
+			fornecedorController.adicionaFornecedor(null, "@test", "73573");
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 
 		}
 		try {
-			fornecedorController.cadastraFornecedor("test", null, "73573");
+			fornecedorController.adicionaFornecedor("test", null, "73573");
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 
 		}
 		try {
-			fornecedorController.cadastraFornecedor("test", "@test", null);
+			fornecedorController.adicionaFornecedor("test", "@test", null);
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 
@@ -46,19 +46,19 @@ class testFornecedorController {
 	@Test
 	void EmptyConstruct() {
 		try {
-			fornecedorController.cadastraFornecedor(" ", "@test", "73573");
+			fornecedorController.adicionaFornecedor(" ", "@test", "73573");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			fornecedorController.cadastraFornecedor("test", "", "73573");
+			fornecedorController.adicionaFornecedor("test", "", "73573");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			fornecedorController.cadastraFornecedor("test", "@test", "   ");
+			fornecedorController.adicionaFornecedor("test", "@test", "   ");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
@@ -67,9 +67,9 @@ class testFornecedorController {
 
 	@Test
 	void testCadastraProduto() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		try {
-			fornecedorController.cadastraProduto("Mouse", "MousePC", 78.99, "test");
+			fornecedorController.adicionaProduto("Mouse", "MousePC", 78.99, "test");
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}
@@ -77,50 +77,50 @@ class testFornecedorController {
 	
 	@Test
 	void testCadastraProdutoNull() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		try {
-			fornecedorController.cadastraProduto(null, "MousePC", 78.99, "test");
+			fornecedorController.adicionaProduto(null, "MousePC", 78.99, "test");
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 			
 		}
 		try {
-			fornecedorController.cadastraProduto("Mouse", null, 78.99, "test");
+			fornecedorController.adicionaProduto("Mouse", null, 78.99, "test");
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 
 		}
 		try {
-			fornecedorController.cadastraProduto("Mouse", "MousePC", 78.99, null);
+			fornecedorController.adicionaProduto("Mouse", "MousePC", 78.99, null);
 			fail("Era esperado exceção");
-		} catch (IllegalArgumentException e) {
+		} catch (NullPointerException e) {
 
 		}
 	}
 	
 	@Test
 	void testCadastraProdutoEmpty() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		try {
-			fornecedorController.cadastraProduto("", "MousePC", 78.99, "test");
+			fornecedorController.adicionaProduto("", "MousePC", 78.99, "test");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			fornecedorController.cadastraProduto("Mouse", "  ", 78.99, "test");
+			fornecedorController.adicionaProduto("Mouse", "  ", 78.99, "test");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			fornecedorController.cadastraProduto("Mouse", "MousePC", -78.99, "test");
+			fornecedorController.adicionaProduto("Mouse", "MousePC", -78.99, "test");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			fornecedorController.cadastraProduto("Mouse", "MousePC", 78.99, " ");
+			fornecedorController.adicionaProduto("Mouse", "MousePC", 78.99, " ");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
@@ -129,20 +129,21 @@ class testFornecedorController {
 
 	@Test
 	void testGetFornecedor() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
-		assertEquals(fornecedorController.getFornecedor("test"), "test - @test - 73573");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
+		assertEquals(fornecedorController.exibeFornecedor("test"), "test - @test - 73573");
 	}
 
 	@Test
 	void testGetFornecedores() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
-		fornecedorController.cadastraFornecedor("test1", "@test1", "735731");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
+		fornecedorController.adicionaFornecedor("test1", "@test1", "735731");
 		assertEquals(fornecedorController.getFornecedores(), "test - @test - 73573 | test1 - @test1 - 735731\n");
 	}
 
+	/**
 	@Test
 	void testSetFornecedorEmail() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		try {
 			fornecedorController.setFornecedorEmail("@testtest", "test");
 		} catch (Exception e) {
@@ -167,10 +168,12 @@ class testFornecedorController {
 
 		}
 	}
-
+	*/
+	
+	/**
 	@Test
 	void testSetFornecedorTelefone() {
-		fornecedorController.cadastraFornecedor("test", "@test", "73573");
+		fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		try {
 			fornecedorController.setFornecedorTelefone("8888", "test");
 		} catch (Exception e) {
@@ -195,25 +198,27 @@ class testFornecedorController {
 
 		}
 	}
-
-
+	*/
+	
+	/**
 	@Test
 	void testSetProdutoValor() {
-		fornecedorController.cadastraFornecedor("tests", "@test", "73573");
-		fornecedorController.cadastraProduto("Teclado", "TecladoPC", 78.99, "tests");
+		fornecedorController.adicionaFornecedor("tests", "@test", "73573");
+		fornecedorController.adicionaProduto("Teclado", "TecladoPC", 78.99, "tests");
 		try {
 			fornecedorController.setProdutoValor(100.00, "Teclado", "TecladoPC", "tests");
 		} catch (Exception e){
 			fail("Não era esperado exceção");
 		}
 	}
-
+	*/
+	
 	@Test
 	void testGetProduto() {
-		fornecedorController.cadastraFornecedor("tests", "@test", "73573");
-		fornecedorController.cadastraProduto("Teclado", "TecladoPC", 78.99, "tests");
+		fornecedorController.adicionaFornecedor("tests", "@test", "73573");
+		fornecedorController.adicionaProduto("Teclado", "TecladoPC", 78.99, "tests");
 		try {
-			assertEquals(fornecedorController.getProduto("Teclado", "TecladoPC", "tests"), "Teclado - TecladoPC - R$78,99\n");
+			assertEquals(fornecedorController.exibeProduto("Teclado", "TecladoPC", "tests"), "Teclado - TecladoPC - R$78,99");
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}
@@ -221,16 +226,16 @@ class testFornecedorController {
 
 	@Test
 	void testGetProdutos() {
-		fornecedorController.cadastraFornecedor("tests", "@test", "73573");
-		fornecedorController.cadastraProduto("Teclado", "TecladoPC", 78.99, "tests");
-		fornecedorController.cadastraProduto("Mouse", "MousePC", 78.99, "tests");
+		fornecedorController.adicionaFornecedor("tests", "@test", "73573");
+		fornecedorController.adicionaProduto("Teclado", "TecladoPC", 78.99, "tests");
+		fornecedorController.adicionaProduto("Mouse", "MousePC", 78.99, "tests");
 		try {
-			assertEquals(fornecedorController.getProdutos("tests"), "tests - Teclado - TecladoPC - R$78,99 | tests - Mouse - MousePC - R$78,99\n");
+			assertEquals(fornecedorController.exibeProdutos("tests"), "tests - Teclado - TecladoPC - R$78,99, tests - Mouse - MousePC - R$78,99");
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}
 		try {
-			fornecedorController.getProdutos("naoexiste");
+			fornecedorController.exibeProdutos("naoexiste");
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
@@ -239,7 +244,7 @@ class testFornecedorController {
 
 	@Test
 	void testRemoveFornecedor() {
-		fornecedorController.cadastraFornecedor("tests", "@test", "73573");
+		fornecedorController.adicionaFornecedor("tests", "@test", "73573");
 		try {
 			fornecedorController.removeFornecedor("tests");
 		} catch (Exception e) {
@@ -255,8 +260,8 @@ class testFornecedorController {
 
 	@Test
 	void testRemoveProduto() {
-		fornecedorController.cadastraFornecedor("tests", "@test", "73573");
-		fornecedorController.cadastraProduto("Teclado", "TecladoPC", 78.99, "tests");
+		fornecedorController.adicionaFornecedor("tests", "@test", "73573");
+		fornecedorController.adicionaProduto("Teclado", "TecladoPC", 78.99, "tests");
 		try {
 			fornecedorController.removeProduto("Teclado", "TecladoPC", "tests");
 		} catch (Exception e) {
