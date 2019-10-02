@@ -2,7 +2,7 @@ package pacotepadrao;
 
 import easyaccept.EasyAccept;
 
-/** Representação de um delegador*/
+/** Representação de um delegador */
 
 public class Facade {
 	/** Controlador de Fornecedores*/
@@ -10,6 +10,7 @@ public class Facade {
 	/** Controlador de Clientes*/
 	private ClienteController clienteController = new ClienteController();
 	
+	/** Testes de aceitação */
 	public static void main(String[] args) {
 		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt" };
 		EasyAccept.main(args);

@@ -55,7 +55,6 @@ class testPessoa {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Test
 	void testSetEmail() {
 		Pessoa testPessoa = new Pessoa("Gustavo", "@ccc");

@@ -38,8 +38,8 @@ public class Cliente extends Pessoa {
 	 * @param Localização do Cliente (String)
 	 */
 	public void setLocalizacao(String localizacaoCliente) {
-		Utilitarios.NullException("Localização nulo", localizacaoCliente);
-		Utilitarios.EmptyException("Localização vazio", localizacaoCliente);
+		Utilitarios.NullException("Erro na edicao do cliente: atributo nao pode ser nulo.", localizacaoCliente);
+		Utilitarios.EmptyException("Erro na edicao do cliente: atributo nao pode ser vazio.", localizacaoCliente);
 		this.localizacao = localizacaoCliente;
 	}
 	
@@ -48,8 +48,8 @@ public class Cliente extends Pessoa {
 	 * @param Nome do Cliente (String)
 	 */
 	public void setNome(String nomeCliente) {
-		Utilitarios.NullException("Nome nulo", nomeCliente);
-		Utilitarios.EmptyException("Nome vazio", nomeCliente);
+		Utilitarios.NullException("Erro na edicao do cliente: atributo nao pode ser nulo.", nomeCliente);
+		Utilitarios.EmptyException("Erro na edicao do cliente: atributo nao pode ser vazio.", nomeCliente);
 		this.nome = nomeCliente;
 	}
 	
