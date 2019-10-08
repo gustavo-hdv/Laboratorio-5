@@ -26,15 +26,13 @@ class testPessoa {
 	void NullConstruct() {
 		try {
 			Pessoa testPessoa = new Pessoa(null, "@ccc");
-			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
-
+			fail("Não era esperado exceção");
 		}
 		try {
 			Pessoa testPessoa = new Pessoa("Gustavo", null);
-			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
-
+			fail("Não era esperado exceção");
 		}
 	}
 	
@@ -43,14 +41,13 @@ class testPessoa {
 	void EmptyConstruct() {
 		try {
 			Pessoa testPessoa = new Pessoa("", "@ccc");
-			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
-
+			fail("Não era esperado exceção");
 		}
 		try {
 			Pessoa testPessoa = new Pessoa("Gustavo", "");
-			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
+			fail("Não era esperado exceção");
 
 		}
 	}

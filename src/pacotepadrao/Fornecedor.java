@@ -20,8 +20,12 @@ public class Fornecedor extends Pessoa {
 	 */
 	public Fornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
 		super(nomeFornecedor, emailFornecedor);
-		Utilitarios.NullException("Erro no cadastro do fornecedor: telefone nao pode ser nulo.", telefoneFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: telefone nao pode ser vazio.", telefoneFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
 		
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
@@ -31,10 +35,16 @@ public class Fornecedor extends Pessoa {
 	 * @param Telefone do Fornecedor (String)
 	 */
 	public void setTelefone(String telefoneFornecedor) {
-		Utilitarios.NullException("Erro na edicao do fornecedor: atributo nao pode ser nulo.", telefoneFornecedor);
-		Utilitarios.EmptyException("Erro na edicao do fornecedor: atributo nao pode ser vazio.", telefoneFornecedor);
+		Utilitarios.NullException("Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.", telefoneFornecedor);
+		Utilitarios.EmptyException("Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.", telefoneFornecedor);
 		
 		this.telefoneFornecedor = telefoneFornecedor;
+	}
+	
+	public void setEmail(String emailFornecedor) {
+		Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo", emailFornecedor);
+		Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo", emailFornecedor);
+		this.email = emailFornecedor;
 	}
 	
 	/** Cadastra um Produto na lista do Fornecedor
@@ -44,10 +54,10 @@ public class Fornecedor extends Pessoa {
 	 * @param Valor do Produto (double)
 	 */
 	public void cadastraProduto(String nomeProduto, String descricaoProduto, double valorProduto) {
-		Utilitarios.NullException("Erro no cadastro de produto: nome nao pode ser nulo.", nomeProduto);
-		Utilitarios.NullException("Erro no cadastro de produto: descricao nao pode ser nula.", descricaoProduto);
-		Utilitarios.EmptyException("Erro no cadastro de produto: nome nao pode ser vazio.", nomeProduto);
-		Utilitarios.EmptyException("Erro no cadastro de produto: descricao nao pode ser vazia.", descricaoProduto);
+		Utilitarios.NullException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
 		Utilitarios.NumberException("Erro no cadastro de produto: preco invalido.", valorProduto);
 		
 		ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
@@ -117,6 +127,11 @@ public class Fornecedor extends Pessoa {
 	 * @param Descrição do Produto (String)
 	 */
 	public void removeProduto(String nomeProduto, String descricaoProduto) {
+		Utilitarios.NullException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro na remocao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro na remocao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		
 		if (hasProduto(nomeProduto, descricaoProduto)) {
 			produtos.remove(Arrays.asList(nomeProduto, descricaoProduto));
 			return;

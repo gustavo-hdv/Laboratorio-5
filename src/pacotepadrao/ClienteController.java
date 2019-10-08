@@ -20,7 +20,7 @@ public class ClienteController {
 		if (!this.clientes.containsKey(cpf)) {
 			this.clientes.put(cpf, new Cliente(nome, email, localizacao, cpf));
 			return cpf;
-		} throw new IllegalArgumentException("Erro no cadastro: cliente ja existe.");
+		} throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
 	}
 	
 	/** Representação de um Cliente
@@ -30,8 +30,8 @@ public class ClienteController {
 	 * @return nome - localização - email (String)
 	 */
 	public String exibeCliente(String cpfCliente) {
-		Utilitarios.NullException("Erro na exibicao do cliente: cpf nao pode ser nulo.", cpfCliente);
-		Utilitarios.EmptyException("Erro na exibicao do cliente: cpf nao pode ser vazio.", cpfCliente);
+		Utilitarios.NullException("Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		
 		if (hasCliente(cpfCliente)) {
 			return this.clientes.get(cpfCliente).toString();
@@ -65,8 +65,10 @@ public class ClienteController {
 	 * @param novo valor para o atributo (String)
 	 */
 	public void editaCliente(String cpfCliente, String atributo, String novoValor) {
-		Utilitarios.NullException("Erro na edicao do cliente: atributo nao pode ser nulo.", atributo);
-		Utilitarios.EmptyException("Erro na edicao do cliente: atributo nao pode ser vazio.", atributo);
+		Utilitarios.NullException("Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.", atributo);
+		Utilitarios.EmptyException("Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.", atributo);
+		Utilitarios.NullException("Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		
 		if (atributo.equals("cpf")) {
 			throw new IllegalArgumentException("Erro na edicao do cliente: cpf nao pode ser editado.");
@@ -92,8 +94,8 @@ public class ClienteController {
 	 */
 	private void setClienteLocalizacao(String localizacaoCliente, String cpfCliente) {
 		if (hasCliente(cpfCliente)) {
-			Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser nulo.", localizacaoCliente);
-			Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio.", localizacaoCliente);
+			Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", localizacaoCliente);
+			Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", localizacaoCliente);
 			this.clientes.get(cpfCliente).setLocalizacao(localizacaoCliente);
 			return;
 		}
@@ -107,8 +109,8 @@ public class ClienteController {
 	 */
 	private void setClienteNome(String nomeCliente, String cpfCliente) {
 		if (hasCliente(cpfCliente)) {
-			Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser nulo.", nomeCliente);
-			Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio.", nomeCliente);
+			Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", nomeCliente);
+			Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", nomeCliente);
 			this.clientes.get(cpfCliente).setNome(nomeCliente);
 			return;
 		} 
@@ -122,8 +124,8 @@ public class ClienteController {
 	 */
 	private void setClienteEmail(String emailCliente, String cpfCliente) {
 		if (hasCliente(cpfCliente)) {
-			Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser nulo.", emailCliente);
-			Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio.", emailCliente);
+			Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", emailCliente);
+			Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", emailCliente);	
 			this.clientes.get(cpfCliente).setEmail(emailCliente);
 			return;
 		}
@@ -135,6 +137,9 @@ public class ClienteController {
 	 * @param CPF do Cliente (String)
 	 */
 	public void removeCliente(String cpfCliente) {
+		Utilitarios.NullException("Erro na remocao do cliente: cpf nao pode ser vazio ou nulo", cpfCliente);
+		Utilitarios.EmptyException("Erro na remocao do cliente: cpf nao pode ser vazio ou nulo", cpfCliente);
+		
 		if (hasCliente(cpfCliente)) {
 			this.clientes.remove(cpfCliente);
 			return;
@@ -147,9 +152,6 @@ public class ClienteController {
 	 * @param CPF do Cliente (String)
 	 */
 	private boolean hasCliente(String cpfCliente) {
-		Utilitarios.NullException("Erro na remocao do cliente: cpf nao pode ser nulo.", cpfCliente);
-		Utilitarios.EmptyException("Erro na remocao do cliente: cpf nao pode ser vazio.", cpfCliente);
-		
 		if (clientes.containsKey(cpfCliente)) {
 			return true;
 		} return false;

@@ -20,15 +20,19 @@ public class Cliente extends Pessoa {
 	 */
 	public Cliente(String nomeCliente, String emailCliente, String localizacaoCliente, String cpfCliente) {
 		super(nomeCliente, emailCliente);
-		Utilitarios.NullException("Erro no cadastro: localizacao nao pode ser nula.", localizacaoCliente);
-		Utilitarios.NullException("Erro no cadastro: cpf nao pode ser nulo.", cpfCliente);
-		Utilitarios.EmptyException("Erro no cadastro: localizacao nao pode ser vazia.", localizacaoCliente);
-		Utilitarios.EmptyException("Erro no cadastro: cpf nao pode ser vazio.", cpfCliente);
+		Utilitarios.NullException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.", nomeCliente);
+		Utilitarios.EmptyException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.", nomeCliente);
+		Utilitarios.NullException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.", emailCliente);
+		Utilitarios.EmptyException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.", emailCliente);
+		Utilitarios.NullException("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", localizacaoCliente);
+		Utilitarios.EmptyException("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.", localizacaoCliente);
+		Utilitarios.NullException("Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
 	
 		this.localizacao = localizacaoCliente;
 		
 		if (cpfCliente.length() != 11) {
-			throw new IllegalArgumentException("Erro no cadastro: cpf invalido.");
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
 		}
 		this.cpf = cpfCliente;
 	}
@@ -38,8 +42,8 @@ public class Cliente extends Pessoa {
 	 * @param Localização do Cliente (String)
 	 */
 	public void setLocalizacao(String localizacaoCliente) {
-		Utilitarios.NullException("Erro na edicao do cliente: atributo nao pode ser nulo.", localizacaoCliente);
-		Utilitarios.EmptyException("Erro na edicao do cliente: atributo nao pode ser vazio.", localizacaoCliente);
+		Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", localizacaoCliente);
+		Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", localizacaoCliente);
 		this.localizacao = localizacaoCliente;
 	}
 	
@@ -48,9 +52,20 @@ public class Cliente extends Pessoa {
 	 * @param Nome do Cliente (String)
 	 */
 	public void setNome(String nomeCliente) {
-		Utilitarios.NullException("Erro na edicao do cliente: atributo nao pode ser nulo.", nomeCliente);
-		Utilitarios.EmptyException("Erro na edicao do cliente: atributo nao pode ser vazio.", nomeCliente);
+		Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", nomeCliente);
+		Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.", nomeCliente);
 		this.nome = nomeCliente;
+	}
+	
+	/** Determina o email do Cliente
+	 * 
+	 * @param Email no Cliente (String)
+	 */
+	@Override
+	public void setEmail(String emailCliente) {
+		Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo", emailCliente);
+		Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo", emailCliente);
+		this.email = emailCliente;
 	}
 	
 	/** Representação de um Cliente estilo:

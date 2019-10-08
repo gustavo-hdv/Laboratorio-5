@@ -135,7 +135,7 @@ public class Facade {
 	 *  @return nome - descrição - valor(2df) (String)
 	 */
 	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		return this.fornecedorController.exibeProduto(nomeProduto, descricaoProduto, nomeFornecedor) + System.lineSeparator();
+		return this.fornecedorController.exibeProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
 	/** Representação de todos os Produtos de um Fornecedor
@@ -168,7 +168,6 @@ public class Facade {
 	public void editaProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor, double novoValor) {
 		this.fornecedorController.editaProduto(nomeProduto, descricaoProduto, nomeFornecedor, novoValor);
 	}
-	
 	
 	/** Remove um Produto de um Fornecedor
 	 * 

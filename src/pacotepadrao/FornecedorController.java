@@ -17,12 +17,12 @@ public class FornecedorController {
 	 * @return Nome do Fornecedor (String)
 	 */
 	public String adicionaFornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
-		Utilitarios.NullException("Erro no cadastro do fornecedor: nome nao pode ser nulo.", nomeFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: nome nao pode ser vazio.", nomeFornecedor);
-		Utilitarios.NullException("Erro no cadastro do fornecedor: email nao pode ser nulo.", emailFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: email nao pode ser vazio.", emailFornecedor);
-		Utilitarios.NullException("Erro no cadastro do fornecedor: telefone nao pode ser nulo.", telefoneFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: telefone nao pode ser vazio.", telefoneFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
 		
 		if (!hasFornecedor(nomeFornecedor)) {
 			this.fornecedores.put(nomeFornecedor, new Fornecedor(nomeFornecedor, emailFornecedor, telefoneFornecedor));
@@ -38,12 +38,12 @@ public class FornecedorController {
 	 * @param Nome do Fornecedor (String)
 	 */
 	public void adicionaProduto(String nomeProduto, String descricaoProduto, double valorProduto, String nomeFornecedor) {
-		Utilitarios.NullException("Erro no cadastro de produto: fornecedor nao pode ser nulo.", nomeFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro de produto: fornecedor nao pode ser vazio.", nomeFornecedor);
-		Utilitarios.NullException("Erro no cadastro de produto: nome nao pode ser nulo.", nomeProduto);
-		Utilitarios.EmptyException("Erro no cadastro de produto: nome nao pode ser vazio.", nomeProduto);
-		Utilitarios.NullException("Erro no cadastro de produto: descricao nao pode ser nula.", descricaoProduto);
-		Utilitarios.EmptyException("Erro no cadastro de produto: descricao nao pode ser vazia.", descricaoProduto);
+		Utilitarios.NullException("Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
 		Utilitarios.NumberException("Erro no cadastro de produto: preco invalido.", valorProduto);
 		
 		if (hasFornecedor(nomeFornecedor)) {
@@ -94,8 +94,10 @@ public class FornecedorController {
 	 * @param novo valor para o atributo (String)
 	 */
 	public void editaFornecedor(String nomeFornecedor, String atributo, String novoValor) {
-		Utilitarios.NullException("Erro na edicao do fornecedor: atributo nao pode ser nulo.", atributo);
-		Utilitarios.EmptyException("Erro na edicao do fornecedor: atributo nao pode ser vazio.", atributo);
+		Utilitarios.NullException("Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.", atributo);
+		Utilitarios.EmptyException("Erro na edicao do fornecedor: atributo nao pode ser vazio ou nulo.", atributo);
+		Utilitarios.NullException("Erro na edicao do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na edicao do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
 		
 		if (atributo.equals("nome")) {
 			throw new IllegalArgumentException("Erro na edicao do fornecedor: nome nao pode ser editado.");
@@ -119,12 +121,12 @@ public class FornecedorController {
 	 * @param novo valor do produto (double)
 	 */
 	public void editaProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor, double novoValor) {
-		Utilitarios.NullException("Erro na edicao de produto: fornecedor nao pode ser nulo.", nomeFornecedor);
-		Utilitarios.EmptyException("Erro na edicao de produto: fornecedor nao pode ser vazio.", nomeFornecedor);
-		Utilitarios.NullException("Erro na edicao de produto: nome nao pode ser nulo.", nomeProduto);
-		Utilitarios.EmptyException("Erro na edicao de produto: nome nao pode ser vazio.", nomeProduto);
-		Utilitarios.NullException("Erro na edicao de produto: descricao nao pode ser nula.", descricaoProduto);
-		Utilitarios.EmptyException("Erro na edicao de produto: descricao nao pode ser vazia.", descricaoProduto);
+		Utilitarios.NullException("Erro na edicao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na edicao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro na edicao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro na edicao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro na edicao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro na edicao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
 		Utilitarios.NumberException("Erro na edicao de produto: preco invalido.", novoValor);
 		
 		setProdutoValor(novoValor, nomeProduto, descricaoProduto, nomeFornecedor);
@@ -140,6 +142,7 @@ public class FornecedorController {
 	 */
 	private void setProdutoValor(double valorProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor) {
 		if (hasFornecedor(nomeFornecedor)) {
+			Utilitarios.NumberException("Erro na edicao de produto: preco invalido.", valorProduto);
 			if (hasProduto(nomeProduto, descricaoProduto, nomeFornecedor)) {
 				this.fornecedores.get(nomeFornecedor).setProdutoValor(valorProduto, nomeProduto, descricaoProduto);
 				return;
@@ -154,8 +157,8 @@ public class FornecedorController {
 	 */
 	private void setFornecedorEmail(String emailFornecedor, String nomeFornecedor) {
 		if (hasFornecedor(nomeFornecedor)) {
-			Utilitarios.NullException("Erro na edicao do fornecedor: novo valor nao pode ser nulo.", emailFornecedor);
-			Utilitarios.EmptyException("Erro na edicao do fornecedor: novo valor nao pode ser vazio.", emailFornecedor);
+			Utilitarios.NullException("Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.", emailFornecedor);
+			Utilitarios.EmptyException("Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.", emailFornecedor);
 			this.fornecedores.get(nomeFornecedor).setEmail(emailFornecedor);
 			return;
 		}
@@ -169,8 +172,8 @@ public class FornecedorController {
 	 */
 	private void setFornecedorTelefone(String telefoneFornecedor, String nomeFornecedor) {
 		if (hasFornecedor(nomeFornecedor)) {
-			Utilitarios.NullException("Erro na edicao do fornecedor: novo valor nao pode ser nulo.", telefoneFornecedor);
-			Utilitarios.EmptyException("Erro na edicao do fornecedor: novo valor nao pode ser vazio.", telefoneFornecedor);
+			Utilitarios.NullException("Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.", telefoneFornecedor);
+			Utilitarios.EmptyException("Erro na edicao do fornecedor: novo valor nao pode ser vazio ou nulo.", telefoneFornecedor);
 			this.fornecedores.get(nomeFornecedor).setTelefone(telefoneFornecedor);
 			return;
 		}
@@ -188,12 +191,12 @@ public class FornecedorController {
 	 *  @return nome - descrição - valor(2df) (String)
 	 */
 	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		Utilitarios.NullException("Erro na exibicao de produto: fornecedor nao pode ser nulo.", nomeFornecedor);
-		Utilitarios.EmptyException("Erro na exibicao de produto: fornecedor nao pode ser vazio.", nomeFornecedor);
-		Utilitarios.NullException("Erro na exibicao de produto: nome nao pode ser nulo.", nomeProduto);
-		Utilitarios.EmptyException("Erro na exibicao de produto: nome nao pode ser vazio.", nomeProduto);
-		Utilitarios.NullException("Erro na exibicao de produto: descricao nao pode ser nula.", descricaoProduto);
-		Utilitarios.EmptyException("Erro na exibicao de produto: descricao nao pode ser vazia.", descricaoProduto);
+		Utilitarios.NullException("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro na exibicao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro na exibicao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro na exibicao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro na exibicao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
 		
 		if (hasFornecedor(nomeFornecedor)) {
 			if (hasProduto(nomeProduto, descricaoProduto, nomeFornecedor)) {
@@ -240,8 +243,8 @@ public class FornecedorController {
 	 * @param Nome do Fornecedor (String)
 	 */
 	public void removeFornecedor(String nomeFornecedor) {
-		Utilitarios.NullException("Erro na remocao do fornecedor: nome do fornecedor nao pode ser nulo.", nomeFornecedor);
-		Utilitarios.EmptyException("Erro na remocao do fornecedor: nome do fornecedor nao pode ser vazio.", nomeFornecedor);
+		Utilitarios.NullException("Erro na remocao do fornecedor: nome do fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na remocao do fornecedor: nome do fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
 		
 		if (hasFornecedor(nomeFornecedor)) {
 			this.fornecedores.remove(nomeFornecedor);
@@ -256,13 +259,12 @@ public class FornecedorController {
 	 * @param Nome do Fornecedor (String)
 	 */
 	public void removeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		Utilitarios.EmptyException("Erro na remocao de produto: nome nao pode ser vazio.", nomeProduto);
-		Utilitarios.EmptyException("Erro na remocao de produto: descricao nao pode ser vazia.", descricaoProduto);
-		Utilitarios.EmptyException("Erro na remocao de produto: fornecedor nao pode ser vazio.", nomeFornecedor);
-		Utilitarios.NullException("Erro na remocao de produto: nome nao pode ser nulo.", nomeProduto);
-		Utilitarios.NullException("Erro na remocao de produto: descricao nao pode ser nula.", descricaoProduto);
-		Utilitarios.NullException("Erro na remocao de produto: fornecedor nao pode ser nulo.", nomeFornecedor);
-
+		Utilitarios.NullException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro na remocao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.NullException("Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro na remocao de produto: descricao nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
 		
 		if (hasFornecedor(nomeFornecedor)) {
 			if (hasProduto(nomeProduto, descricaoProduto, nomeFornecedor)) {
