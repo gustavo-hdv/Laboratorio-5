@@ -1,8 +1,13 @@
 package pacotepadrao;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 /** Representação do Controlador de Fornecedores*/
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FornecedorController {
 	/** Mapa de Fornecedores por seu nome*/
@@ -75,12 +80,23 @@ public class FornecedorController {
 	 */
 	public String getFornecedores() {
 		String toStringFornecedores = "";
-		int contador = this.fornecedores.size();
-		for (String nomeFornecedor: this.fornecedores.keySet()) {
+		
+		//Preenche lista com fornecedores
+		List<Fornecedor> fornecedoresOrdenados = new ArrayList<>();
+		for (Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet()) {
+			fornecedoresOrdenados.add(fornecedor.getValue());
+		}
+		
+		//Ordena lista de fornecedores
+		fornecedoresOrdenados.sort(Comparator.comparing(Fornecedor::toString));
+		
+		//Preenche toStringFornecedores
+		int contador = fornecedoresOrdenados.size();
+		for (Fornecedor fornecedor: fornecedoresOrdenados) {
 			if (contador != 1) {
-				toStringFornecedores += this.fornecedores.get(nomeFornecedor).toString() + " | ";
+				toStringFornecedores += fornecedor.toString() + " | ";
 			} else {
-				toStringFornecedores += this.fornecedores.get(nomeFornecedor).toString() + System.lineSeparator();
+				toStringFornecedores += fornecedor.toString();
 			}
 			contador--;
 		}
@@ -213,6 +229,9 @@ public class FornecedorController {
 	 *  @return NomeFornecedor - nomeProduto - descrição - valor | ... (String)
 	 */
 	public String exibeProdutos(String nomeFornecedor) {
+		Utilitarios.NullException("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		
 		if (hasFornecedor(nomeFornecedor)) {
 			return this.fornecedores.get(nomeFornecedor).exibeProdutos();
 		}
@@ -226,12 +245,23 @@ public class FornecedorController {
 	 */
 	public String exibeProdutos() {
 		String toStringProdutos = "";
-		int contador = this.fornecedores.size();
-		for (String fornecedorKey : this.fornecedores.keySet()) {
+		
+		//Preenche lista de fornecedores
+		List<Fornecedor> fornecedoresOrdenados = new ArrayList<>();
+		for (Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet()) {
+			fornecedoresOrdenados.add(fornecedor.getValue());
+		}
+		
+		//Ordena lista de fornecedores
+		fornecedoresOrdenados.sort(Comparator.comparing(Fornecedor::toString).thenComparing(Fornecedor::exibeProdutos));
+		
+		//Preenche toStringProdutos
+		int contador = fornecedoresOrdenados.size();
+		for (Fornecedor fornecedor : fornecedoresOrdenados) {
 			if (contador != 1) {
-				toStringProdutos += this.fornecedores.get(fornecedorKey).exibeProdutos() + ", ";
+				toStringProdutos += fornecedor.exibeProdutos() + " | ";
 			} else {
-				toStringProdutos += this.fornecedores.get(fornecedorKey).exibeProdutos();
+				toStringProdutos += fornecedor.exibeProdutos();
 			}
 			contador--;
 		}

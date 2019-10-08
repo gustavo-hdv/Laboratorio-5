@@ -4,7 +4,10 @@ package pacotepadrao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Fornecedor extends Pessoa {
 	/** Telefone do Fornecedor (String) */
@@ -94,7 +97,7 @@ public class Fornecedor extends Pessoa {
 	 *
 	 *  @return nome - descrição - valor (String)
 	 */
-	public String exibeProduto(String nomeProduto, String descricaoProduto) {
+	public String exibeProduto(String nomeProduto, String descricaoProduto) {	
 		if (hasProduto(nomeProduto, descricaoProduto)) {
 			ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
 			return this.produtos.get(key).toString();
@@ -108,13 +111,27 @@ public class Fornecedor extends Pessoa {
 	 * @return NomeFornecedor - NomeProduto - Descrição - Valor, ... (String)
 	 */
 	public String exibeProdutos() {
+		if (this.produtos.size() == 0) {
+			return super.toString() + " -";
+		}
+	
 		String toStringProdutos = "";
-		int contador = produtos.size();
-		for (ArrayList<String> produtoKey : produtos.keySet()) {
+		//Preenche lista de produtos
+		List<Produto> produtosOrdenados = new ArrayList<>();
+		for (Map.Entry<ArrayList<String>, Produto> produto : this.produtos.entrySet()) {
+			produtosOrdenados.add(produto.getValue());
+		}
+		
+		//Ordena lista de produtos
+		produtosOrdenados.sort(Comparator.comparing(Produto::toString));
+		
+		//Preenche toStringProdutos
+		int contador = produtosOrdenados.size();
+		for (Produto produto : produtosOrdenados) {
 			if (contador != 1) {
-				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString() + ", ";
+				toStringProdutos += super.toString() + " - " + produto.toString() + " | ";
 			} else {
-				toStringProdutos += super.toString() + " - " + produtos.get(produtoKey).toString();
+				toStringProdutos +=super.toString() + " - " + produto.toString();
 			}
 			contador--;
 		}

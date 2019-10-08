@@ -1,8 +1,13 @@
 package pacotepadrao;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 /** Representação de um Controlador de Clientes*/
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ClienteController {
 	/** Mapa de Clientes por seu CPF*/
@@ -46,15 +51,27 @@ public class ClienteController {
 	 */
 	public String getClientes() {
 		String toStringClientes = "";
-		int contador = this.clientes.size();
-		for (String cpfCliente : this.clientes.keySet()) {
+		
+		//Preenchendo a lista de clientes
+		List<Cliente> clientesOrdenados = new ArrayList<>();
+		for (Map.Entry<String, Cliente> cliente : this.clientes.entrySet()) {
+			clientesOrdenados.add(cliente.getValue());
+		}
+
+		//Ordenando os clientes pelo toString
+		clientesOrdenados.sort(Comparator.comparing(Cliente::toString));
+		
+		//Preenchendo uma String com todos os toString's
+		int contador = clientesOrdenados.size();
+		for (Cliente cliente : clientesOrdenados) {
 			if (contador != 1) {
-				toStringClientes += this.clientes.get(cpfCliente).toString() + " | ";
+				toStringClientes += cliente.toString() + " | ";
 			} else {
-				toStringClientes += this.clientes.get(cpfCliente).toString() + System.lineSeparator();
+				toStringClientes += cliente.toString();
 			}
 			contador--;
 		}
+
 		return toStringClientes;
 	}
 	

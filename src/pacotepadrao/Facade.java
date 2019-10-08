@@ -12,7 +12,7 @@ public class Facade {
 	
 	/** Testes de aceitação */
 	public static void main(String[] args) {
-		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt" };
+		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" };
 		EasyAccept.main(args);
 	}
 	
@@ -92,7 +92,7 @@ public class Facade {
 	 *  
 	 *  @return nome - email - telefone | ...
 	 */
-	public String getFornecedores() {
+	public String exibeFornecedores() {
 		return this.fornecedorController.getFornecedores();
 	}
 	
@@ -154,7 +154,7 @@ public class Facade {
 	 *  
 	 *  @return NomeFornecedor - nomeProduto - descrição - valor | ... (String)
 	 */
-	public String exibeProdutosFornecedores() {
+	public String exibeProdutos() {
 		return this.fornecedorController.exibeProdutos();
 	}
 	

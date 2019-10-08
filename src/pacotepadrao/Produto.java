@@ -19,11 +19,11 @@ public class Produto {
 	 * @param Valor do Produto (double)
 	 */
 	public Produto(String nomeProduto, String descricaoProduto, double valorProduto) {
-		Utilitarios.NullException("Nome nulo", nomeProduto);
-		Utilitarios.EmptyException("Nome vazio", nomeProduto);
-		Utilitarios.NullException("Descrição nulo", descricaoProduto);
-		Utilitarios.EmptyException("Descrição vazio", descricaoProduto);
-		Utilitarios.NumberException("Valor negativo", valorProduto);
+		Utilitarios.NullException("Erro no cadastro, nome do produto nao pode ser nulo ou vazio.", nomeProduto);
+		Utilitarios.EmptyException("Erro no cadastro, nome do produto nao pode ser nulo ou vazio.", nomeProduto);
+		Utilitarios.NullException("Erro no cadastro, descricao do produto nao pode ser nula ou vazia.", descricaoProduto);
+		Utilitarios.EmptyException("Erro no cadastro, descricao do produto nao pode ser nula ou vazia.", descricaoProduto);
+		Utilitarios.NumberException("Erro no cadastro de produto: preco invalido.", valorProduto);
 		
 		this.nome = nomeProduto;
 		this.descricao = descricaoProduto;
@@ -35,7 +35,7 @@ public class Produto {
 	 *  @param Valor do Produto (double)
 	 */
 	public void setValor(double valorProduto) {
-		Utilitarios.NumberException("Valor negativo", valorProduto);
+		Utilitarios.NumberException("Erro na edicao de produto: preco invalido.", valorProduto);
 		this.valor = valorProduto;
 	}
 	
