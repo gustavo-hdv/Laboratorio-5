@@ -137,7 +137,7 @@ class testFornecedorController {
 	void testGetFornecedores() {
 		fornecedorController.adicionaFornecedor("test", "@test", "73573");
 		fornecedorController.adicionaFornecedor("test1", "@test1", "735731");
-		assertEquals(fornecedorController.getFornecedores(), "test - @test - 73573 | test1 - @test1 - 735731\n");
+		assertEquals(fornecedorController.getFornecedores(), "test - @test - 73573 | test1 - @test1 - 735731");
 	}
 
 	/**
@@ -230,7 +230,7 @@ class testFornecedorController {
 		fornecedorController.adicionaProduto("Teclado", "TecladoPC", 78.99, "tests");
 		fornecedorController.adicionaProduto("Mouse", "MousePC", 78.99, "tests");
 		try {
-			assertEquals(fornecedorController.exibeProdutos("tests"), "tests - Teclado - TecladoPC - R$78,99, tests - Mouse - MousePC - R$78,99");
+			assertEquals(fornecedorController.exibeProdutos("tests"), "tests - Mouse - MousePC - R$78,99 | tests - Teclado - TecladoPC - R$78,99");
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}

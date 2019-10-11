@@ -10,8 +10,139 @@ import java.util.List;
 import java.util.Map;
 
 public class FornecedorController {
-	/** Mapa de Fornecedores por seu nome*/
+	/** Mapa de Fornecedores por seu nome */
 	private HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
+	
+	public String exibeContasClientes(String cpfCliente, ClienteController clienteController) {
+		Utilitarios.NullException("Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cpf invalido.");
+		}
+		if (!clienteController.hasCliente(cpfCliente)) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
+		}
+		
+		String contasCliente = "Cliente: " + clienteController.getClienteNome(cpfCliente) + " | ";
+		
+		//Preenche lista de fornecedores
+		List<Fornecedor> fornecedoresOrdenados = new ArrayList<>();
+		for (Map.Entry<String, Fornecedor> fornecedor : this.fornecedores.entrySet()) {
+			fornecedoresOrdenados.add(fornecedor.getValue());
+		}
+		
+		//Ordena lista de fornecedores
+		fornecedoresOrdenados.sort(Comparator.comparing(Fornecedor::toString));
+		
+		//Preence contasCliente
+		int contador = fornecedoresOrdenados.size();
+		for (Fornecedor fornecedor : fornecedoresOrdenados) {
+			if (fornecedor.hasDebito(cpfCliente)) {
+				if (contador != 1) {
+					contasCliente += fornecedor.exibeContas(cpfCliente, fornecedor.getNome(), clienteController) + " | ";
+				} else {
+					contasCliente += fornecedor.exibeContas(cpfCliente, fornecedor.getNome(), clienteController);
+				}
+			}
+		}
+		if (contasCliente.equals("Cliente: " + clienteController.getClienteNome(cpfCliente) + " | ")) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao tem nenhuma conta.");
+		}
+		
+		return contasCliente;
+	}
+	
+	public String exibeContas(String cpfCliente, String nomeFornecedor, ClienteController clienteController) {
+		Utilitarios.NullException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.NullException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cpf invalido.");
+		}
+		if (!clienteController.hasCliente(cpfCliente)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao existe.");
+		}
+		if (!hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao existe.");
+		}
+		return "Cliente: " + clienteController.getClienteNome(cpfCliente) + " | " + fornecedores.get(nomeFornecedor).exibeContas(cpfCliente, nomeFornecedor, clienteController);
+	}
+	
+	/** Retorna o débito de um cliente para determinado fornecedor
+	 * 
+	 * @param cpf do cliente (String)
+	 * @param nome do fornecedor (String)
+	 * @param cliente controller para lista de clientes
+	 * 
+	 * @return débito do cliente formatado em 2 casas decimais
+	 */
+	public String getDebito(String cpfCliente, String nomeFornecedor, ClienteController clienteController) {
+		Utilitarios.NullException("Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cpf invalido.");
+		}
+		Utilitarios.NullException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
+		}
+		
+		if (!hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
+		}
+		
+		if (!clienteController.hasCliente(cpfCliente)) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao existe.");
+		} 
+		
+		if (!hasDebito(cpfCliente, nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
+		}
+		
+		return fornecedores.get(nomeFornecedor).getDebito(cpfCliente);
+	}
+	
+	/** Adiciona a compra de um cliente no mapa de contas de um fornecedor
+	 *  Observação: Cria uma conta com o débito do cliente e informações dos produtos comprados se ainda não existir
+	 * 
+	 * @param cpf do cliente (String) (tamanho 11)
+	 * @param nome do fornecedor (String)
+	 * @param data da compra (String) (tamanho 10)
+	 * @param nome do produto (String)
+	 * @param descricao do produto (String)
+	 */
+	public void adicionaCompra(String cpfCliente, String nomeFornecedor, String dataCompra, String nomeProduto, String descricaoProduto, ClienteController clienteController) {
+		Utilitarios.NullException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.NullException("Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.", dataCompra);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.", dataCompra);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
+		}
+		if (dataCompra.length() != 10) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
+		}
+		Utilitarios.NullException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.", descricaoProduto);
+		
+		if (!clienteController.hasCliente(cpfCliente)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
+		}
+		
+		if (!hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe.");
+		} 
+		
+		fornecedores.get(nomeFornecedor).adicionaCompra(cpfCliente, dataCompra, nomeProduto, descricaoProduto);
+
+	}
 	
 	/** Cadastro de um Fornecedor
 	 * 
@@ -322,6 +453,17 @@ public class FornecedorController {
 	 */
 	private boolean hasProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
 		if (this.fornecedores.get(nomeFornecedor).hasProduto(nomeProduto, descricaoProduto)) {
+			return true;
+		} return false;
+	}
+	
+	/** Verifica se um cliente tem débito em um fornecedor
+	 * 
+	 * @param cpf do cliente (String)
+	 * @param nome do fornecedor (String)
+	 */
+	private boolean hasDebito(String cpfCliente, String nomeFornecedor) {
+		if (fornecedores.get(nomeFornecedor).hasDebito(cpfCliente)) {
 			return true;
 		} return false;
 	}

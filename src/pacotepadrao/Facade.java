@@ -12,8 +12,24 @@ public class Facade {
 	
 	/** Testes de aceitação */
 	public static void main(String[] args) {
-		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" };
+		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" , "testes_aceitacao/use_case_5.txt", "testes_aceitacao/use_case_6.txt" };
 		EasyAccept.main(args);
+	}
+	
+	public String exibeContasClientes(String cpfCliente) {
+		return this.fornecedorController.exibeContasClientes(cpfCliente, this.clienteController);
+	}
+	
+	public String exibeContas(String cpfCliente, String nomeFornecedor) {
+		return this.fornecedorController.exibeContas(cpfCliente, nomeFornecedor, this.clienteController);
+	}
+	
+	public String getDebito(String cpfCliente, String nomeFornecedor) {
+		return this.fornecedorController.getDebito(cpfCliente, nomeFornecedor, this.clienteController);
+	}
+	
+	public void adicionaCompra(String cpfCliente, String nomeFornecedor, String dataCompra, String nomeProduto, String descricaoProduto) {
+		this.fornecedorController.adicionaCompra(cpfCliente, nomeFornecedor, dataCompra, nomeProduto, descricaoProduto, this.clienteController);
 	}
 	
 	/** Cadastra um Cliente

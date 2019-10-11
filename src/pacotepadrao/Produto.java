@@ -39,6 +39,14 @@ public class Produto {
 		this.valor = valorProduto;
 	}
 	
+	/** Retorna o valor do produto 
+	 * 
+	 * @return valor do produto (double)
+	 */
+	public double getValor() {
+		return this.valor;
+	}
+	
 	/** Representação de um Produto
 	 *  Estilo: nome - descrição - valor (formatado 2 casas decimais)
 	 *  

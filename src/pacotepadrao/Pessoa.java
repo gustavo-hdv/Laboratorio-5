@@ -4,7 +4,7 @@ package pacotepadrao;
  *  Recebe: Nome e Email
  */
 
-public class Pessoa {
+abstract public class Pessoa {
 	/** Nome de Pessoa (String)*/
 	protected String nome;
 	/** Email de Pessoa (String)*/
@@ -24,11 +24,7 @@ public class Pessoa {
 	 * 
 	 * @param Email da Pessoa (String)
 	 */
-	public void setEmail(String email) {
-		Utilitarios.NullException("Email nao pode se nulo ou vazio.", email);
-		Utilitarios.EmptyException("Email nao pode se nulo ou vazio.", email);
-		this.email = email;
-	}
+	abstract public void setEmail(String email);
 	
 	/** Representação de Pessoa
 	 *  Estilo: Nome de Pessoa

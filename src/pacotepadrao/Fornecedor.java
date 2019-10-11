@@ -3,6 +3,7 @@ package pacotepadrao;
 /** Representação de um Fornecedor de Produtos */
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,6 +15,97 @@ public class Fornecedor extends Pessoa {
 	private String telefoneFornecedor;
 	/** Mapa de Produtos por nome e descrição */
 	private HashMap<ArrayList<String>, Produto> produtos = new HashMap<ArrayList<String>, Produto>();
+	private HashMap<String, Conta> contas = new HashMap<String, Conta>();
+	
+	public String exibeContas(String cpfCliente, String nomeFornecedor, ClienteController clienteController) {
+		Utilitarios.NullException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cpf invalido.");
+		}
+		if (!clienteController.hasCliente(cpfCliente)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao existe.");
+		}
+		Utilitarios.NullException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		
+		if (!hasDebito(cpfCliente)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
+		}
+		
+		String contaCliente = nomeFornecedor + " | " + contas.get(cpfCliente).toString();	
+		return contaCliente;
+	}
+	
+	/** Retorna o débito de um cliente
+	 * 
+	 * @param cpf do cliente (String)
+	 * 
+	 * @return débito do cliente (String formatada com 2 casas decimais)
+	 */
+	public String getDebito(String cpfCliente) {
+		Utilitarios.NullException("Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
+		}
+		
+		if (!hasDebito(cpfCliente)) { 
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
+		}
+
+		return String.format("%.2f", contas.get(cpfCliente).getDebito());
+	}
+	
+	/** Verifica se o cliente tem débito
+	 * 
+	 * @param cpf do cliente (String)
+	 * 
+	 * @return boolean
+	 */
+	public boolean hasDebito(String cpfCliente) {
+		if (this.contas.containsKey(cpfCliente)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/** Adiciona a compra de um cliente no mapa de contas do fornecedor
+	 *  Observação: Cria uma conta com o débito do cliente e informações dos produtos comprados se ainda não existir
+	 * 
+	 * @param cpf do cliente (String) (tamanho 11)
+	 * @param data da compra (String) (tamanho 10)
+	 * @param nome do produto (String)
+	 * @param descricao do produto (String)
+	 */
+	public void adicionaCompra(String cpfCliente, String dataCompra, String nomeProduto, String descricaoProduto) {
+		Utilitarios.NullException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.NullException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.", dataCompra);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.", dataCompra);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
+		}
+		if (dataCompra.length() != 10) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
+		}
+		Utilitarios.NullException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.", nomeProduto);
+		Utilitarios.NullException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.", descricaoProduto);
+		Utilitarios.EmptyException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.", descricaoProduto);
+		
+		if (!hasProduto(nomeProduto, descricaoProduto)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
+		}
+		
+		if (!hasDebito(cpfCliente)) {
+			this.contas.put(cpfCliente, new Conta());
+		} 
+
+		double valorProduto = produtos.get(Arrays.asList(nomeProduto, descricaoProduto)).getValor();
+		this.contas.get(cpfCliente).adicionaCompra(dataCompra, nomeProduto, valorProduto);
+	}
 	
 	/** Construtor: constrói um Fornecedor com Nome, Email e Telefone
 	 * 
@@ -44,6 +136,11 @@ public class Fornecedor extends Pessoa {
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
 	
+	/** Determina o Email do Fornecedor
+	 * 
+	 * @param Email do Fornecedor (String)
+	 */
+	@Override
 	public void setEmail(String emailFornecedor) {
 		Utilitarios.NullException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo", emailFornecedor);
 		Utilitarios.EmptyException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo", emailFornecedor);
@@ -87,6 +184,14 @@ public class Fornecedor extends Pessoa {
 			return;
 		}
 		throw new IllegalArgumentException("Erro na edicao de produto: produto nao existe.");
+	}
+	
+	/** Retorna o nome do fornecedor
+	 * 
+	 * @return nome do fornecedor (String)
+	 */
+	public String getNome() {
+		return this.nome;
 	}
 	
 	/** Representação de um Produto
@@ -169,6 +274,7 @@ public class Fornecedor extends Pessoa {
 		} 
 		return false;
 	}
+	
 	
 	/** Representação de um Fornecedor
 	 *  Estilo: nome - email - telefone

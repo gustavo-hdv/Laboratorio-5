@@ -1,6 +1,6 @@
 package testes;
 
-import static org.junit.jupiter.api.Assertions.*;
+/**import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +9,7 @@ import pacotepadrao.Pessoa;
 /**
 * Representação de testes da classe Pessoa
 */
+/**
 class testPessoa {
 	
 	@SuppressWarnings("unused")
@@ -80,4 +81,5 @@ class testPessoa {
 		assertEquals(testPessoa.toString(), "Gustavo");
 	}
 
-}
+}*/
+

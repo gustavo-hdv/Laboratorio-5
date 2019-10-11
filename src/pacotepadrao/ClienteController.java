@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ClienteController {
-	/** Mapa de Clientes por seu CPF*/
+	/** Mapa de Clientes por seu CPF */
 	private HashMap<String, Cliente> clientes = new HashMap<String, Cliente>();
 	
 	/** Cadastra um Cliente
@@ -134,6 +134,16 @@ public class ClienteController {
 		throw new IllegalArgumentException("Erro na edicao do cliente: cliente nao existe.");
 	}
 	
+	/** Retorna o nome de um cliente
+	 * 
+	 * @param cpf do cliente (String)
+	 * 
+	 * @return nome do cliente (String)
+	 */
+	public String getClienteNome(String cpfCliente) {
+		return clientes.get(cpfCliente).getNome();
+	}
+	
 	/** Determina o email de um Cliente
 	 * 
 	 * @param Email do Cliente (String)
@@ -168,9 +178,13 @@ public class ClienteController {
 	 * 
 	 * @param CPF do Cliente (String)
 	 */
-	private boolean hasCliente(String cpfCliente) {
+	public boolean hasCliente(String cpfCliente) {
 		if (clientes.containsKey(cpfCliente)) {
 			return true;
 		} return false;
+	}
+	
+	public HashMap<String, Cliente> getMapaClientes() {
+		return this.clientes;
 	}
 }

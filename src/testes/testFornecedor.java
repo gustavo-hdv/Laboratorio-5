@@ -195,7 +195,7 @@ class testFornecedor {
 	void testGetProdutos() {
 		fornecedor1.cadastraProduto("Mouse", "MousePC", 78.99);
 		fornecedor1.cadastraProduto("Teclado", "tecladoPC", 199.99);
-		assertEquals(fornecedor1.exibeProdutos(), "Gustavo - Mouse - MousePC - R$78,99, Gustavo - Teclado - tecladoPC - R$199,99");
+		assertEquals(fornecedor1.exibeProdutos(), "Gustavo - Mouse - MousePC - R$78,99 | Gustavo - Teclado - tecladoPC - R$199,99");
 	}
 
 	@Test

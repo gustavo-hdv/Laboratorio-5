@@ -68,6 +68,10 @@ public class Cliente extends Pessoa {
 		this.email = emailCliente;
 	}
 	
+	public String getNome() {
+		return this.nome;
+	}
+	
 	/** Representação de um Cliente estilo:
 	 *  Nome - Localização - Email
 	 *
