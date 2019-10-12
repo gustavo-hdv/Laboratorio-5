@@ -17,6 +17,15 @@ public class Fornecedor extends Pessoa {
 	private HashMap<ArrayList<String>, Produto> produtos = new HashMap<ArrayList<String>, Produto>();
 	private HashMap<String, Conta> contas = new HashMap<String, Conta>();
 	
+	/** Exibe um conta de um cliente para determinado fornecedor
+	 *  Estilo: "Cliente: nomeCliente | nomeFornecedor | produto - data | ...
+	 *  
+	 *  @param cpf do cliente (String)
+	 *  @param nome do fornecedor (String)
+	 *  @param cliente controller para verificações do cliente
+	 *  
+	 *  @return "Cliente: nomeCliente | nomeFornecedor | produto - data | ..." (String)
+	 */
 	public String exibeContas(String cpfCliente, String nomeFornecedor, ClienteController clienteController) {
 		Utilitarios.NullException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		Utilitarios.EmptyException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
@@ -35,6 +44,62 @@ public class Fornecedor extends Pessoa {
 		
 		String contaCliente = nomeFornecedor + " | " + contas.get(cpfCliente).toString();	
 		return contaCliente;
+	}
+	
+	/** edita o desconto do combo
+	 * 
+	 * @param nome do combo (String)
+	 * @param descrição do combo (String)
+	 * @param desconto do combo (double)
+	 */
+	public void editaCombo(String nomeCombo, String descricaoCombo, double novoFator) {
+		Utilitarios.NullException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.EmptyException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.NullException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		Utilitarios.EmptyException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		if (novoFator <= 0 || novoFator >= 1) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
+		}
+		if (!hasProduto(nomeCombo, descricaoCombo)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+		}
+		
+		this.produtos.get(Arrays.asList(nomeCombo, descricaoCombo)).setValor(novoFator);
+	}
+	
+	/** Adiciona um combo de produto
+	 * 
+	 * @param nome do combo (String)
+	 * @param descrição do combo (String)
+	 * @param desconto do combo (double)
+	 * @param valor total do combo (double)
+	 */
+	public void adicionaCombo(String nomeCombo, String descricaoCombo, double fator, double valorTotal) {
+		Utilitarios.NullException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.EmptyException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.NullException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		Utilitarios.EmptyException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		if (hasProduto(nomeCombo, descricaoCombo)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}
+		if (fator <= 0 || fator >= 1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+		}
+		
+		Produto combo = new ProdutoCombo(nomeCombo, descricaoCombo, fator, valorTotal);
+		ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeCombo, descricaoCombo));
+		produtos.put(key, combo);
+	}
+	
+	/** Retorna o valor de um produto
+	 * 
+	 * @param nome do produto (String)
+	 * @param descrição do produto (String)
+	 * 
+	 * @return valor do produto (double)
+	 */
+	protected double getValorProduto(String nomeProduto, String descricaoProduto) {
+		return produtos.get(Arrays.asList(nomeProduto, descricaoProduto)).getValor();
 	}
 	
 	/** Retorna o débito de um cliente
@@ -161,7 +226,7 @@ public class Fornecedor extends Pessoa {
 		Utilitarios.NumberException("Erro no cadastro de produto: preco invalido.", valorProduto);
 		
 		ArrayList<String> key = new ArrayList<>(Arrays.asList(nomeProduto, descricaoProduto));
-		Produto product = new Produto(nomeProduto, descricaoProduto, valorProduto);
+		Produto product = new ProdutoSimples(nomeProduto, descricaoProduto, valorProduto);
 		this.produtos.put(key, product);
 	}
 	

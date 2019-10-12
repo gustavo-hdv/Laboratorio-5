@@ -1,6 +1,7 @@
 package pacotepadrao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 /** Representação do Controlador de Fornecedores*/
@@ -13,6 +14,105 @@ public class FornecedorController {
 	/** Mapa de Fornecedores por seu nome */
 	private HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
 	
+	/** edita o desconto do combo
+	 * 
+	 * @param nome do combo (String)
+	 * @param descrição do combo (String)
+	 * @param nome do fornecedor (String)
+	 * @param desconto do combo (double)
+	 */
+	public void editaCombo(String nomeCombo, String descricaoCombo, String nomeFornecedor, double novoFator) {
+		Utilitarios.NullException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.EmptyException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.NullException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		Utilitarios.EmptyException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		Utilitarios.NullException("Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		if (novoFator <= 0 || novoFator >= 1) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
+		}
+		if (!hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
+		}
+		if (!hasProduto(nomeCombo, descricaoCombo, nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+		}
+		
+		this.fornecedores.get(nomeFornecedor).editaCombo(nomeCombo, descricaoCombo, novoFator);
+	}
+	
+	/** Adiciona um combo de produto
+	 * 
+	 * @param nome do fornecedor (String)
+	 * @param nome do combo (String)
+	 * @param descrição do combo (String)
+	 * @param desconto do combo (double)
+	 * @param produtos do combo (String)
+	 */
+	public void adicionaCombo(String nomeFornecedor, String nomeCombo, String descricaoCombo, double fator, String produtosCombo) {
+		Utilitarios.NullException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.EmptyException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.", nomeCombo);
+		Utilitarios.NullException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		Utilitarios.EmptyException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.", descricaoCombo);
+		Utilitarios.NullException("Erro no cadastro de combo: combo deve ter produtos.", produtosCombo);
+		Utilitarios.EmptyException("Erro no cadastro de combo: combo deve ter produtos.", produtosCombo);
+		if (!hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+		}
+		if (hasProduto(nomeCombo, descricaoCombo, nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}
+		if (fator <= 0 || fator >= 1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+		}
+		
+		double valorProdutosCombo = calculaValorProdutosCombo(nomeFornecedor, produtosCombo);
+		this.fornecedores.get(nomeFornecedor).adicionaCombo(nomeCombo, descricaoCombo, fator, valorProdutosCombo);
+	}
+	
+	/** Calcula o valor de todos os produtos do combo
+	 * 
+	 * @param nome do fornecedor (String)
+	 * @param produtos do combo (String)
+	 * 
+	 * @return valor de todos os produtos do combo (double)
+	 */
+	private double calculaValorProdutosCombo(String nomeFornecedor, String produtosCombo) {
+		double valorTotal = 0.0;
+		ArrayList<String> produtos = new ArrayList<>(Arrays.asList(produtosCombo.split(", ")));
+		for (String produto : produtos) {
+			if (produto.contains("+")) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
+			}
+			ArrayList<String> nomeDescricao = new ArrayList<>(Arrays.asList(produto.split(" - ")));
+			if (!hasProduto(nomeDescricao.get(0), nomeDescricao.get(1), nomeFornecedor)) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
+			}
+			valorTotal += getValorProduto(nomeFornecedor, nomeDescricao.get(0), nomeDescricao.get(1));
+		}
+		return valorTotal;
+	}
+	
+	/** retorna o valor de um produto
+	 * 
+	 * @param nome do fornecedor (String)
+	 * @param nome do produto (String)
+	 * @param descrição do produto (String)
+	 */
+	private double getValorProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
+		return fornecedores.get(nomeFornecedor).getValorProduto(nomeProduto, descricaoProduto);
+	}
+	
+	/** Exibe a conta de um cliente para todos os fornecedores
+	 *  Estilo: "Cliente: nomeCliente | nomeFornecedor | produto - data | nomeFornecedor | produto - data | ...
+	 *  
+	 *  @param cpf do cliente (String)
+	 *  @param cliente controller para verificações do cliente
+	 *  
+	 *  @return ""Cliente: nomeCliente | nomeFornecedor | produto - data | nomeFornecedor | produto - data | ..." (String)
+	 */
 	public String exibeContasClientes(String cpfCliente, ClienteController clienteController) {
 		Utilitarios.NullException("Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		Utilitarios.EmptyException("Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
@@ -34,8 +134,15 @@ public class FornecedorController {
 		//Ordena lista de fornecedores
 		fornecedoresOrdenados.sort(Comparator.comparing(Fornecedor::toString));
 		
-		//Preence contasCliente
-		int contador = fornecedoresOrdenados.size();
+		//Quantidade de débitos
+		int contador = 0;
+		for (Fornecedor fornecedor : fornecedoresOrdenados) {
+			if (fornecedor.hasDebito(cpfCliente)) {
+				contador += 1;
+			}
+		}
+		
+		//Preenche contasCliente
 		for (Fornecedor fornecedor : fornecedoresOrdenados) {
 			if (fornecedor.hasDebito(cpfCliente)) {
 				if (contador != 1) {
@@ -43,6 +150,7 @@ public class FornecedorController {
 				} else {
 					contasCliente += fornecedor.exibeContas(cpfCliente, fornecedor.getNome(), clienteController);
 				}
+				contador--;
 			}
 		}
 		if (contasCliente.equals("Cliente: " + clienteController.getClienteNome(cpfCliente) + " | ")) {
@@ -52,6 +160,15 @@ public class FornecedorController {
 		return contasCliente;
 	}
 	
+	/** Exibe um conta de um cliente para determinado fornecedor
+	 *  Estilo: "Cliente: nomeCliente | nomeFornecedor | produto - data | ...
+	 *  
+	 *  @param cpf do cliente (String)
+	 *  @param nome do fornecedor (String)
+	 *  @param cliente controller para verificações do cliente
+	 *  
+	 *  @return "Cliente: nomeCliente | nomeFornecedor | produto - data | ..." (String)
+	 */
 	public String exibeContas(String cpfCliente, String nomeFornecedor, ClienteController clienteController) {
 		Utilitarios.NullException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		Utilitarios.EmptyException("Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.", cpfCliente);
@@ -86,10 +203,6 @@ public class FornecedorController {
 		Utilitarios.NullException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
 		Utilitarios.EmptyException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
 		
-		if (cpfCliente.length() != 11) {
-			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
-		}
-		
 		if (!hasFornecedor(nomeFornecedor)) {
 			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
 		}
@@ -113,6 +226,7 @@ public class FornecedorController {
 	 * @param data da compra (String) (tamanho 10)
 	 * @param nome do produto (String)
 	 * @param descricao do produto (String)
+	 * @param clienteController (ClienteController)
 	 */
 	public void adicionaCompra(String cpfCliente, String nomeFornecedor, String dataCompra, String nomeProduto, String descricaoProduto, ClienteController clienteController) {
 		Utilitarios.NullException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);

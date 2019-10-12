@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import pacotepadrao.Produto;
+import pacotepadrao.ProdutoSimples;
 
 /**
 * Representação de testes da classe Produto
 */
 class testProduto {
-	private Produto produto1 = new Produto("Mouse", "MousePC", 39.99);
-	private Produto produto2 = new Produto("Mouse", "MousePC", 79.89);
-	private Produto produto3 = new Produto("Teclado", "TecladoPC", 39.99);
+	private ProdutoSimples produto1 = new ProdutoSimples("Mouse", "MousePC", 39.99);
+	private ProdutoSimples produto2 = new ProdutoSimples("Mouse", "MousePC", 79.89);
+	private ProdutoSimples produto3 = new ProdutoSimples("Teclado", "TecladoPC", 39.99);
 	
 	
 	@Test
@@ -24,7 +24,7 @@ class testProduto {
 	@Test
 	void Constructor() {
 		try {
-			Produto testProduto = new Produto("test", "test", 999);
+			ProdutoSimples testProduto = new ProdutoSimples("test", "test", 999);
 		} catch (Exception e) {
 			fail("Não era esperado exceção");
 		}
@@ -34,13 +34,13 @@ class testProduto {
 	@Test
 	void NullConstructor() {
 		try {
-			Produto testProduto = new Produto(null, "test", 999);
+			ProdutoSimples testProduto = new ProdutoSimples(null, "test", 999);
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 
 		}
 		try {
-			Produto testProduto = new Produto("test", null, 999);
+			ProdutoSimples testProduto = new ProdutoSimples("test", null, 999);
 			fail("Era esperado exceção");
 		} catch (NullPointerException e) {
 
@@ -51,19 +51,19 @@ class testProduto {
 	@Test
 	void EmptyConstructor() {
 		try {
-			Produto testProduto = new Produto("", "test", 999);
+			ProdutoSimples testProduto = new ProdutoSimples("", "test", 999);
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			Produto testProduto = new Produto("test", "", 999);
+			ProdutoSimples testProduto = new ProdutoSimples("test", "", 999);
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 
 		}
 		try {
-			Produto testProduto = new Produto("test", "test", -999);
+			ProdutoSimples testProduto = new ProdutoSimples("test", "test", -999);
 			fail("Era esperado exceção");
 		} catch (IllegalArgumentException e) {
 

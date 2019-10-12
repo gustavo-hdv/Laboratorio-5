@@ -16,18 +16,72 @@ public class Facade {
 		EasyAccept.main(args);
 	}
 	
+	/** edita o desconto do combo
+	 * 
+	 * @param nome do combo (String)
+	 * @param descrição do combo (String)
+	 * @param nome do fornecedor (String)
+	 * @param desconto do combo (double)
+	 */
+	public void editaCombo(String nomeCombo, String descricaoCombo, String nomeFornecedor, double novoFator) {
+		this.fornecedorController.editaCombo(nomeCombo, descricaoCombo, nomeFornecedor, novoFator);
+	}
+	
+	/** Adiciona um combo de produto
+	 * 
+	 * @param nome do fornecedor (String)
+	 * @param nome do combo (String)
+	 * @param descrição do combo (String)
+	 * @param desconto do combo (double)
+	 * @param produtos do combo (String)
+	 */
+	public void adicionaCombo(String nomeFornecedor, String nomeCombo, String descricaoCombo, double fator, String produtos) {
+		this.fornecedorController.adicionaCombo(nomeFornecedor, nomeCombo, descricaoCombo, fator, produtos);
+	}
+	
+	/** Exibe a conta de um cliente para todos os fornecedores
+	 *  Estilo: "Cliente: nomeCliente | nomeFornecedor | produto - data | nomeFornecedor | produto - data | ...
+	 *  
+	 *  @param cpf do cliente (String)
+	 *  
+	 *  @return ""Cliente: nomeCliente | nomeFornecedor | produto - data | nomeFornecedor | produto - data | ..." (String)
+	 */
 	public String exibeContasClientes(String cpfCliente) {
 		return this.fornecedorController.exibeContasClientes(cpfCliente, this.clienteController);
 	}
 	
+	/** Exibe um conta de um cliente para determinado fornecedor
+	 *  Estilo: "Cliente: nomeCliente | nomeFornecedor | produto - data | ...
+	 *  
+	 *  @param cpf do cliente (String)
+	 *  @param nome do fornecedor (String)
+	 *  
+	 *  @return "Cliente: nomeCliente | nomeFornecedor | produto - data | ..." (String)
+	 */
 	public String exibeContas(String cpfCliente, String nomeFornecedor) {
 		return this.fornecedorController.exibeContas(cpfCliente, nomeFornecedor, this.clienteController);
 	}
 	
+	/** Retorna o débito de um cliente para determinado fornecedor
+	 * 
+	 * @param cpf do cliente (String)
+	 * @param nome do fornecedor (String)
+	 * 
+	 * @return débito do cliente formatado em 2 casas decimais
+	 */
 	public String getDebito(String cpfCliente, String nomeFornecedor) {
 		return this.fornecedorController.getDebito(cpfCliente, nomeFornecedor, this.clienteController);
 	}
 	
+	/** Adiciona a compra de um cliente no mapa de contas de um fornecedor
+	 *  Observação: Cria uma conta com o débito do cliente e informações dos produtos comprados se ainda não existir
+	 * 
+	 * @param cpf do cliente (String) (tamanho 11)
+	 * @param nome do fornecedor (String)
+	 * @param data da compra (String) (tamanho 10)
+	 * @param nome do produto (String)
+	 * @param descricao do produto (String)
+	 */
 	public void adicionaCompra(String cpfCliente, String nomeFornecedor, String dataCompra, String nomeProduto, String descricaoProduto) {
 		this.fornecedorController.adicionaCompra(cpfCliente, nomeFornecedor, dataCompra, nomeProduto, descricaoProduto, this.clienteController);
 	}
