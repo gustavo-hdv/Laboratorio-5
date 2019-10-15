@@ -13,6 +13,36 @@ public class ClienteController {
 	/** Mapa de Clientes por seu CPF */
 	private HashMap<String, Cliente> clientes = new HashMap<String, Cliente>();
 	
+	/** Realiza o pagamento do débito de um cliente
+	 * 
+	 * @param cpf do cliente (String)
+	 * @param nome do fornecedor (String)
+	 * @param controlador dos fornecedores(FornecedorController)
+	 */
+	public void realizarPagamento(String cpfCliente, String nomeFornecedor, FornecedorController fornecedorController) {
+		Utilitarios.NullException("Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.NullException("Erro no pagamento de conta: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro no pagamento de conta: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: cpf invalido.");
+		}
+		
+		if (!hasCliente(cpfCliente)) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: cliente nao existe.");
+		}
+		
+		if (!fornecedorController.hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: fornecedor nao existe.");
+		}
+		
+		if (!fornecedorController.hasDebito(cpfCliente, nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: nao ha debito do cliente associado a este fornecedor.");
+		}
+		
+		fornecedorController.removeConta(cpfCliente, nomeFornecedor);
+	}
+	
 	/** Cadastra um Cliente
 	 * 
 	 * @param Nome do Cliente (String)
@@ -182,9 +212,5 @@ public class ClienteController {
 		if (clientes.containsKey(cpfCliente)) {
 			return true;
 		} return false;
-	}
-	
-	public HashMap<String, Cliente> getMapaClientes() {
-		return this.clientes;
 	}
 }

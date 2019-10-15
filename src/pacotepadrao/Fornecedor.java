@@ -17,6 +17,19 @@ public class Fornecedor extends Pessoa {
 	private HashMap<ArrayList<String>, Produto> produtos = new HashMap<ArrayList<String>, Produto>();
 	private HashMap<String, Conta> contas = new HashMap<String, Conta>();
 	
+	/** Remove a conta de um cliente 
+	 * 
+	 * @param cpf do cliente (String)
+	 */
+	protected void removeConta(String cpfCliente) {
+		Utilitarios.NullException("Erro ao remover conta: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao remover conta: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao remover conta: cpf invalido.");
+		}
+		contas.remove(cpfCliente);
+	}
+	
 	/** Exibe um conta de um cliente para determinado fornecedor
 	 *  Estilo: "Cliente: nomeCliente | nomeFornecedor | produto - data | ...
 	 *  

@@ -12,8 +12,17 @@ public class Facade {
 	
 	/** Testes de aceitação */
 	public static void main(String[] args) {
-		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" , "testes_aceitacao/use_case_5.txt", "testes_aceitacao/use_case_6.txt" };
+		args = new String[] { "pacotepadrao.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" , "testes_aceitacao/use_case_5.txt", "testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt" };
 		EasyAccept.main(args);
+	}
+	
+	/** Realiza o pagamento do débito de um cliente
+	 * 
+	 * @param cpf do cliente (String)
+	 * @param nome do fornecedor (String)
+	 */
+	public void realizaPagamento(String cpfCliente, String nomeFornecedor) {
+		this.clienteController.realizarPagamento(cpfCliente, nomeFornecedor, this.fornecedorController);
 	}
 	
 	/** edita o desconto do combo
@@ -70,7 +79,7 @@ public class Facade {
 	 * @return débito do cliente formatado em 2 casas decimais
 	 */
 	public String getDebito(String cpfCliente, String nomeFornecedor) {
-		return this.fornecedorController.getDebito(cpfCliente, nomeFornecedor, this.clienteController);
+		return this.fornecedorController.getDebito(cpfCliente, nomeFornecedor, this.clienteController).replace(",", ".");
 	}
 	
 	/** Adiciona a compra de um cliente no mapa de contas de um fornecedor

@@ -14,6 +14,30 @@ public class FornecedorController {
 	/** Mapa de Fornecedores por seu nome */
 	private HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
 	
+	/** Realiza o pagamento do cliente removendo sua conta
+	 * 
+	 * @param cpf do cliente (String)
+	 * @param nome do fornecedor (String)
+	 */
+	protected void removeConta(String cpfCliente, String nomeFornecedor) {
+		Utilitarios.NullException("Erro ao remover conta: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.EmptyException("Erro ao remover conta: cpf nao pode ser vazio ou nulo.", cpfCliente);
+		Utilitarios.NullException("Erro ao remover conta: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro ao remover conta: fornecedor nao pode ser vazio ou nulo.", nomeFornecedor);
+		if (cpfCliente.length() != 11) {
+			throw new IllegalArgumentException("Erro ao remover conta: cpf invalido.");
+		}
+		if (!hasFornecedor(nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro ao remover conta: fornecedor nao existe.");
+		}
+		
+		if (!hasDebito(cpfCliente, nomeFornecedor)) {
+			throw new IllegalArgumentException("Erro ao remover conta: nao ha debito do cliente associado a este fornecedor.");
+		}
+		
+		fornecedores.get(nomeFornecedor).removeConta(cpfCliente);
+	}
+	
 	/** edita o desconto do combo
 	 * 
 	 * @param nome do combo (String)
@@ -553,7 +577,7 @@ public class FornecedorController {
 	 * 
 	 * @param Nome do Fornecedor (String)
 	 */
-	private boolean hasFornecedor(String nomeFornecedor) {
+	protected boolean hasFornecedor(String nomeFornecedor) {
 		if (this.fornecedores.containsKey(nomeFornecedor)) {
 			return true;
 		} return false;
@@ -576,7 +600,7 @@ public class FornecedorController {
 	 * @param cpf do cliente (String)
 	 * @param nome do fornecedor (String)
 	 */
-	private boolean hasDebito(String cpfCliente, String nomeFornecedor) {
+	protected boolean hasDebito(String cpfCliente, String nomeFornecedor) {
 		if (fornecedores.get(nomeFornecedor).hasDebito(cpfCliente)) {
 			return true;
 		} return false;

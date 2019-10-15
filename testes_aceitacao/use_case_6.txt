@@ -29,10 +29,10 @@ expectError "Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo." adiciona
 
 ## Totalizando conta de um fornecedor ##
 
-expect 5,00 getDebito cpf="64269141198" fornecedor="Marcos"
-expect 1,50 getDebito cpf="64269141198" fornecedor="Seu Olavo"
-expect 17,00 getDebito cpf="58217738123" fornecedor="Dona Alba"
-expect 5,00 getDebito cpf="58217738123" fornecedor="Marcos"
+expect 5.00 getDebito cpf="64269141198" fornecedor="Marcos"
+expect 1.50 getDebito cpf="64269141198" fornecedor="Seu Olavo"
+expect 17.00 getDebito cpf="58217738123" fornecedor="Dona Alba"
+expect 5.00 getDebito cpf="58217738123" fornecedor="Marcos"
 
 expectError "Erro ao recuperar debito: cliente nao existe." getDebito cpf="12345678919" fornecedor="Marcos"
 expectError "Erro ao recuperar debito: cpf invalido." getDebito cpf="98142" fornecedor="Marcos"
