@@ -15,7 +15,61 @@ public class Fornecedor extends Pessoa {
 	private String telefoneFornecedor;
 	/** Mapa de Produtos por nome e descrição */
 	private HashMap<ArrayList<String>, Produto> produtos = new HashMap<ArrayList<String>, Produto>();
+	/** Mapa de contas dos clientes pelo cpf */
 	private HashMap<String, Conta> contas = new HashMap<String, Conta>();
+	
+	/** Construtor: constrói um Fornecedor com Nome, Email e Telefone 
+	 * 
+	 * @param Nome do Fornecedor (String)
+	 * @param Email do Fornecedor (String)
+	 * @param Telefone do Fornecedor (String)
+	 */
+	public Fornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
+		super(nomeFornecedor, emailFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
+		Utilitarios.NullException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
+		Utilitarios.EmptyException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
+		
+		this.telefoneFornecedor = telefoneFornecedor;
+	}
+	
+	public String listarCompras(String criterio) {
+		if (this.produtos.size() == 0) {
+			return super.toString() + " -";
+		}
+	
+		String toStringProdutos = "";
+		//Preenche lista de produtos
+		List<Produto> produtosOrdenados = new ArrayList<>();
+		for (Map.Entry<ArrayList<String>, Produto> produto : this.produtos.entrySet()) {
+			produtosOrdenados.add(produto.getValue());
+		}
+		
+		//Ordena lista de produtos
+		//analisarCriterio(produtosOrdenados, criterio);
+		produtosOrdenados.sort(Comparator.comparing(Produto::toString));
+		
+		//Preenche toStringProdutos
+		int contador = produtosOrdenados.size();
+		for (Produto produto : produtosOrdenados) {
+			if (contador != 1) {
+				toStringProdutos += super.toString() + " - " + produto.toString() + " | ";
+			} else {
+				toStringProdutos +=super.toString() + " - " + produto.toString();
+			}
+			contador--;
+		}
+		return toStringProdutos;
+	}
+	
+	//private void analisarCriterio(List<Produto> produtosOrdenados, String criterio) {
+	//	if (criterio.equals("Cliente")) {
+	//		produtosOrdenados.sort(Comparator.comparing(Cliente::getNome));
+	//	}
+	//}
 	
 	/** Remove a conta de um cliente 
 	 * 
@@ -185,23 +239,6 @@ public class Fornecedor extends Pessoa {
 		this.contas.get(cpfCliente).adicionaCompra(dataCompra, nomeProduto, valorProduto);
 	}
 	
-	/** Construtor: constrói um Fornecedor com Nome, Email e Telefone
-	 * 
-	 * @param Nome do Fornecedor (String)
-	 * @param Email do Fornecedor (String)
-	 * @param Telefone do Fornecedor (String)
-	 */
-	public Fornecedor(String nomeFornecedor, String emailFornecedor, String telefoneFornecedor) {
-		super(nomeFornecedor, emailFornecedor);
-		Utilitarios.NullException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.", nomeFornecedor);
-		Utilitarios.NullException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.", emailFornecedor);
-		Utilitarios.NullException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
-		Utilitarios.EmptyException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.", telefoneFornecedor);
-		
-		this.telefoneFornecedor = telefoneFornecedor;
-	}
 	
 	/** Determina o Telefone do Fornecedor
 	 * 

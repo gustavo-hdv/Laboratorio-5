@@ -68,6 +68,10 @@ public class Cliente extends Pessoa {
 		this.email = emailCliente;
 	}
 	
+	/** Retorna o nome do cliente 
+	 * 
+	 * @return nome do cliente (String)
+	 */
 	public String getNome() {
 		return this.nome;
 	}

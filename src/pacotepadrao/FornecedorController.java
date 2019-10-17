@@ -13,6 +13,30 @@ import java.util.Map;
 public class FornecedorController {
 	/** Mapa de Fornecedores por seu nome */
 	private HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
+	private String criterio = null;
+	
+	public String listarCompras(ClienteController clienteController) {
+		String ordenado = "";
+		if (this.criterio == null) {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio ainda nao definido pelo sistema.");
+		}
+		if (!(criterio.equals("Cliente") | criterio.equals("Fornecedor") | criterio.equals("Data"))) {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao oferecido pelo sistema.");
+		}
+		for (Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet()) {
+			ordenado += fornecedor.getValue().listarCompras(this.criterio);
+		}
+		return null;
+	}
+	
+	public void ordenaPor(String criterio) {
+		Utilitarios.NullException("Erro na listagem de compras: criterio nao pode ser vazio ou nulo.", criterio);
+		Utilitarios.EmptyException("Erro na listagem de compras: criterio nao pode ser vazio ou nulo.", criterio);
+		if (!(criterio.equals("Cliente") | criterio.equals("Fornecedor") | criterio.equals("Data"))) {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao oferecido pelo sistema.");
+		}
+		this.criterio = criterio;
+	}
 	
 	/** Realiza o pagamento do cliente removendo sua conta
 	 * 
