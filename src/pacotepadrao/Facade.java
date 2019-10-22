@@ -16,10 +16,18 @@ public class Facade {
 		EasyAccept.main(args);
 	}
 	
+	/** Determina o critério de ordenação para listagem de compras 
+	 * 
+	 * @param critério de ordenação (String)
+	 */
 	public void ordenaPor(String criterio) {
 		this.fornecedorController.ordenaPor(criterio);
 	}
 	
+	/** Lista todas as compras com determinado critério de ordenação 
+	 * 
+	 * @return todas as compras ordenadas (String)
+	 */
 	public String listarCompras() {
 		return this.fornecedorController.listarCompras();
 	}

@@ -1,6 +1,6 @@
 package pacotepadrao;
 
-/** Representação de uma compra com data, nome e valor. */
+/** Representação de uma compra */
 
 public class Compra {
 	/** data da compra (String) */
@@ -31,26 +31,50 @@ public class Compra {
 		this.descricao = descricao;
 	}
 	
+	/** String para ordenação por cliente 
+	 * 
+	 * @return nomeCliente, nomeFornecedor, descrição, data da compra (String)
+	 */
 	public String ordenarCliente() {
 		return this.nomeCliente + ", " + this.nomeFornecedor + ", " + this.descricao + ", " + this.dataCompra.replace('-', '/');
 	}
 	
+	/** String para ordenação por fornecedor 
+	 * 
+	 * @return nomeFornecedor, nomeCliente, descrição, data da compra (String)
+	 */
 	public String ordenarFornecedor() {
 		return this.nomeFornecedor + ", " + this.nomeCliente + ", " + this.descricao + ", " + this.dataCompra.replace('-', '/');
 	}
 	
+	/** String para ordenação por data 
+	 * 
+	 * @return data da compra, nome do cliente, nome do fornecedor, descrição da compra (String)
+	 */
 	public String ordenarData() {
 		return this.dataCompra.replace('-', '/') + ", " + this.nomeCliente + ", " + this.nomeFornecedor + ", " + this.descricao;
 	}
 	
+	/** Retorna o nome do cliente
+	 * 
+	 * @return nome do cliente (String)
+	 */
 	public String getNomeCliente() {
 		return this.nomeCliente;
 	}
 	
+	/** Retorna o nome do fornecedor
+	 * 
+	 * @return nome do fornecedor (String)
+	 */
 	public String getNomeFornecedor() {
 		return this.nomeFornecedor;
 	}
 	
+	/** Retorna a data da compra
+	 * 
+	 * @return data da compra (String)
+	 */
 	public String getData() {
 		return this.dataCompra;
 	}

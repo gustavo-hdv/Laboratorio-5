@@ -14,11 +14,14 @@ import java.util.Map;
 public class FornecedorController {
 	/** Mapa de Fornecedores por seu nome */
 	private HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
+	/** Critério de ordenação */
 	private String criterio = null;
 	
-	/** Lista as compras dependendo do critério fornecido */
+	/** Lista as compras dependendo do critério fornecido
+	 * 
+	 *  @return compras ordenadas pelo critério (String)
+	 */
 	public String listarCompras() {
-
 		if (this.criterio == null) {
 			throw new IllegalArgumentException("Erro na listagem de compras: criterio ainda nao definido pelo sistema.");
 		}
@@ -61,7 +64,10 @@ public class FornecedorController {
 		return null;
 	}
 	
-	/** retorna todas as compras do fornecedor */
+	/** retorna todas as compras do fornecedor 
+	 * 
+	 * @return arraylist de compras 
+	 */
 	private ArrayList<Compra> returnAllComprasFornecedor() {
 		ArrayList<Compra> tempCompras = new ArrayList<Compra>();
 		for (Fornecedor fornecedor : fornecedores.values()) {

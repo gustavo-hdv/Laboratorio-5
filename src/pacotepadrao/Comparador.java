@@ -40,6 +40,7 @@ class CompararData implements Comparator<Compra> {
 	}
 }
 
+/** Comparador */
 public class Comparador {
 	
 }
