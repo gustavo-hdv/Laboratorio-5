@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 public class Conta {
+	/** Lista de compras */
 	ArrayList<Compra> compras = new ArrayList<Compra>();
 	
 	/** Adiciona uma compra na lista de compras
@@ -15,8 +16,15 @@ public class Conta {
 	 * @param nome do produto (String)
 	 * @param valor do produto (double)
 	 */
-	public void adicionaCompra(String dataCompra, String nomeProduto, double valorProduto) {
-		compras.add(new Compra(dataCompra, nomeProduto, valorProduto));
+	public void adicionaCompra(String dataCompra, String nomeProduto, double valorProduto, String descricao, String nomeCliente, String nomeFornecedor) {
+		compras.add(new Compra(dataCompra, nomeProduto, valorProduto, descricao, nomeCliente, nomeFornecedor));
+	}
+	
+	/** retorna as compras 
+	 * 
+	 * @return compras */
+	public ArrayList<Compra> returnCompras() {
+		return this.compras;
 	}
 	
 	/** Retorna o débito

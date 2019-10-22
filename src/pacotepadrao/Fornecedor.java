@@ -36,6 +36,18 @@ public class Fornecedor extends Pessoa {
 		this.telefoneFornecedor = telefoneFornecedor;
 	}
 	
+	/** Retorna todas as compras */
+	public ArrayList<Compra> returnAllCompras() {
+		ArrayList<Compra> tempCompras = new ArrayList<Compra>();
+		for (Conta conta : contas.values()) {
+			tempCompras.addAll(conta.returnCompras());
+		}
+		return tempCompras;
+	}
+	
+	/** Lista as compras pelo critério
+	 * 
+	 * @param critério (String) */
 	public String listarCompras(String criterio) {
 		if (this.produtos.size() == 0) {
 			return super.toString() + " -";
@@ -49,27 +61,16 @@ public class Fornecedor extends Pessoa {
 		}
 		
 		//Ordena lista de produtos
-		//analisarCriterio(produtosOrdenados, criterio);
 		produtosOrdenados.sort(Comparator.comparing(Produto::toString));
 		
 		//Preenche toStringProdutos
-		int contador = produtosOrdenados.size();
-		for (Produto produto : produtosOrdenados) {
-			if (contador != 1) {
-				toStringProdutos += super.toString() + " - " + produto.toString() + " | ";
-			} else {
-				toStringProdutos +=super.toString() + " - " + produto.toString();
-			}
-			contador--;
+		for (int i = 0; i < produtosOrdenados.size(); i++) {
+			if (i != 0) toStringProdutos += " | ";
+			toStringProdutos += produtosOrdenados.get(i).toString();
 		}
+
 		return toStringProdutos;
 	}
-	
-	//private void analisarCriterio(List<Produto> produtosOrdenados, String criterio) {
-	//	if (criterio.equals("Cliente")) {
-	//		produtosOrdenados.sort(Comparator.comparing(Cliente::getNome));
-	//	}
-	//}
 	
 	/** Remove a conta de um cliente 
 	 * 
@@ -211,7 +212,7 @@ public class Fornecedor extends Pessoa {
 	 * @param nome do produto (String)
 	 * @param descricao do produto (String)
 	 */
-	public void adicionaCompra(String cpfCliente, String dataCompra, String nomeProduto, String descricaoProduto) {
+	public void adicionaCompra(String cpfCliente, String dataCompra, String nomeProduto, String descricaoProduto, ClienteController clienteController) {
 		Utilitarios.NullException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		Utilitarios.EmptyException("Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.", cpfCliente);
 		Utilitarios.NullException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.", dataCompra);
@@ -234,11 +235,10 @@ public class Fornecedor extends Pessoa {
 		if (!hasDebito(cpfCliente)) {
 			this.contas.put(cpfCliente, new Conta());
 		} 
-
+		
 		double valorProduto = produtos.get(Arrays.asList(nomeProduto, descricaoProduto)).getValor();
-		this.contas.get(cpfCliente).adicionaCompra(dataCompra, nomeProduto, valorProduto);
+		this.contas.get(cpfCliente).adicionaCompra(dataCompra, nomeProduto, valorProduto, descricaoProduto, clienteController.getClienteNome(cpfCliente), this.nome);
 	}
-	
 	
 	/** Determina o Telefone do Fornecedor
 	 * 

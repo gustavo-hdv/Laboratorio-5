@@ -2,6 +2,7 @@ package pacotepadrao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 /** Representação do Controlador de Fornecedores*/
@@ -15,20 +16,64 @@ public class FornecedorController {
 	private HashMap<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
 	private String criterio = null;
 	
-	public String listarCompras(ClienteController clienteController) {
-		String ordenado = "";
+	/** Lista as compras dependendo do critério fornecido */
+	public String listarCompras() {
+
 		if (this.criterio == null) {
 			throw new IllegalArgumentException("Erro na listagem de compras: criterio ainda nao definido pelo sistema.");
 		}
 		if (!(criterio.equals("Cliente") | criterio.equals("Fornecedor") | criterio.equals("Data"))) {
 			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao oferecido pelo sistema.");
 		}
-		for (Map.Entry<String, Fornecedor> fornecedor : fornecedores.entrySet()) {
-			ordenado += fornecedor.getValue().listarCompras(this.criterio);
+
+		if (this.criterio.equals("Cliente")) {
+			String ordenado = "";
+			ArrayList<Compra> tempCompras = returnAllComprasFornecedor();
+			Collections.sort(tempCompras, new CompararCliente());
+			for (int i = 0; i < tempCompras.size(); i++) {
+				if (i != 0) ordenado += " | ";
+				ordenado += tempCompras.get(i).ordenarCliente();
+			}
+			return ordenado;
+		}
+		
+		if (this.criterio.equals("Fornecedor")) {
+			String ordenado = "";
+			ArrayList<Compra> tempCompras = returnAllComprasFornecedor();
+			Collections.sort(tempCompras, new CompararFornecedor());
+			for (int i = 0; i < tempCompras.size(); i++) {
+				if (i != 0) ordenado += " | ";
+				ordenado += tempCompras.get(i).ordenarFornecedor();
+			}
+			return ordenado;
+		}
+		
+		if (this.criterio.equals("Data")) {
+			String ordenado = "";
+			ArrayList<Compra> tempCompras = returnAllComprasFornecedor();
+			Collections.sort(tempCompras, new CompararData());
+			for (int i = 0; i < tempCompras.size(); i++) {
+				if (i != 0) ordenado += " | ";
+				ordenado += tempCompras.get(i).ordenarData();
+			}
+			return ordenado;
 		}
 		return null;
 	}
 	
+	/** retorna todas as compras do fornecedor */
+	private ArrayList<Compra> returnAllComprasFornecedor() {
+		ArrayList<Compra> tempCompras = new ArrayList<Compra>();
+		for (Fornecedor fornecedor : fornecedores.values()) {
+			tempCompras.addAll(fornecedor.returnAllCompras());
+		}
+		return tempCompras;
+	}
+	
+	/** Define o critério de ordenação 
+	 * 
+	 * @param criterio de ordenação (String) 
+	 */
 	public void ordenaPor(String criterio) {
 		Utilitarios.NullException("Erro na listagem de compras: criterio nao pode ser vazio ou nulo.", criterio);
 		Utilitarios.EmptyException("Erro na listagem de compras: criterio nao pode ser vazio ou nulo.", criterio);
@@ -302,7 +347,7 @@ public class FornecedorController {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe.");
 		} 
 		
-		fornecedores.get(nomeFornecedor).adicionaCompra(cpfCliente, dataCompra, nomeProduto, descricaoProduto);
+		fornecedores.get(nomeFornecedor).adicionaCompra(cpfCliente, dataCompra, nomeProduto, descricaoProduto, clienteController);
 
 	}
 	
@@ -384,15 +429,11 @@ public class FornecedorController {
 		fornecedoresOrdenados.sort(Comparator.comparing(Fornecedor::toString));
 		
 		//Preenche toStringFornecedores
-		int contador = fornecedoresOrdenados.size();
-		for (Fornecedor fornecedor: fornecedoresOrdenados) {
-			if (contador != 1) {
-				toStringFornecedores += fornecedor.toString() + " | ";
-			} else {
-				toStringFornecedores += fornecedor.toString();
-			}
-			contador--;
+		for (int i = 0; i < fornecedoresOrdenados.size(); i++) {
+			if (i != 0) toStringFornecedores += " | ";
+			toStringFornecedores += fornecedoresOrdenados.get(i).toString();
 		}
+
 		return toStringFornecedores;
 	}
 	

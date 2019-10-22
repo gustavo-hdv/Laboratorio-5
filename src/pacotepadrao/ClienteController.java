@@ -12,7 +12,7 @@ import java.util.Map;
 public class ClienteController {
 	/** Mapa de Clientes por seu CPF */
 	private HashMap<String, Cliente> clientes = new HashMap<String, Cliente>();
-	
+
 	/** Realiza o pagamento do débito de um cliente
 	 * 
 	 * @param cpf do cliente (String)

@@ -21,7 +21,7 @@ public class Facade {
 	}
 	
 	public String listarCompras() {
-		return this.fornecedorController.listarCompras(this.clienteController);
+		return this.fornecedorController.listarCompras();
 	}
 	
 	/** Realiza o pagamento do débito de um cliente
